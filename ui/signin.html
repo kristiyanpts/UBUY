@@ -15,29 +15,46 @@
     <title>Document</title>
   </head>
   <body data-theme="white">
-    <div class="auth-form">
-      <div class="auth-form-info">
-        <div class="auth-form-title">Sign In</div>
-        <div class="auth-form-desc">
-          Please, sign in using your account to use our platform.
+    <header>
+      <img src="./images/ubuy-logo.png" alt="" class="logo" />
+      <nav class="navlist">
+        <a href=""><i class="fa-solid fa-house"></i> | Home</a>
+        <a href=""><i class="fa-solid fa-shop"></i> | Market</a>
+        <a href=""><i class="fa-solid fa-address-book"></i> | Contact</a>
+        <a href=""><i class="fa-solid fa-right-to-bracket"></i> | Login</a>
+        <a href=""><i class="fa-solid fa-user-plus"></i> | Register</a>
+
+        <a href=""><i class="fa-solid fa-user"></i> | Kris</a>
+      </nav>
+
+      <button class="nav-menu-button"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+    <section class="main-window">
+      <div class="auth-form">
+        <div class="auth-form-info">
+          <div class="auth-form-title">Sign In</div>
+          <div class="auth-form-desc">
+            Please, sign in using your account to use our platform.
+          </div>
+        </div>
+        <div class="input-field">
+          <i class="fa-solid fa-envelope icon"></i>
+          <input type="text" class="auth-input" placeholder="Email" />
+        </div>
+        <div class="input-field">
+          <i class="fa-solid fa-lock icon"></i>
+          <input type="text" class="auth-input" placeholder="Password" />
+        </div>
+        <button class="auth-button">Sign In</button>
+
+        <div class="splitter"><span>OR</span></div>
+
+        <div class="other-option">
+          <span>Don't have an account, yet?</span>
+          <a href="">Sign Up</a>
         </div>
       </div>
-      <div class="input-field">
-        <i class="fa-solid fa-envelope icon"></i>
-        <input type="text" class="auth-input" placeholder="Email" />
-      </div>
-      <div class="input-field">
-        <i class="fa-solid fa-lock icon"></i>
-        <input type="text" class="auth-input" placeholder="Password" />
-      </div>
-      <button class="auth-button">Sign In</button>
-
-      <div class="splitter"><span>OR</span></div>
-
-      <div class="other-option">
-        <span>Don't have an account, yet?</span>
-        <a href="">Sign Up</a>
-      </div>
-    </div>
+    </section>
   </body>
 </html>

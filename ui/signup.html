@@ -15,64 +15,85 @@
     <title>Document</title>
   </head>
   <body data-theme="dark">
-    <div class="auth-form two-col">
-      <div class="auth-form-info">
-        <div class="auth-form-title">Sign Up</div>
-        <div class="auth-form-desc">
-          Please, sign up using your email address to use our platform.
+    <header>
+      <img src="./images/ubuy-logo.png" alt="" class="logo" />
+      <nav class="navlist selected">
+        <a href=""><i class="fa-solid fa-house"></i> | Home</a>
+        <a href=""><i class="fa-solid fa-shop"></i> | Market</a>
+        <a href=""><i class="fa-solid fa-address-book"></i> | Contact</a>
+        <a href=""><i class="fa-solid fa-right-to-bracket"></i> | Login</a>
+        <a href=""><i class="fa-solid fa-user-plus"></i> | Register</a>
+
+        <a href=""><i class="fa-solid fa-user"></i> | Kris</a>
+      </nav>
+
+      <button class="nav-menu-button"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+    <section class="main-window">
+      <div class="auth-form two-col">
+        <div class="auth-form-info">
+          <div class="auth-form-title">Sign Up</div>
+          <div class="auth-form-desc">
+            Please, sign up using your email address to use our platform.
+          </div>
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-id-badge icon"></i>
+          <input type="text" class="auth-input" placeholder="First Name" />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-id-badge icon"></i>
+          <input type="text" class="auth-input" placeholder="Last Name" />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-envelope icon"></i>
+          <input type="text" class="auth-input" placeholder="Email" />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-user icon"></i>
+          <input type="text" class="auth-input" placeholder="Username" />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-eye icon toggle-password"></i>
+          <i class="fa-solid fa-lock icon"></i>
+          <input type="text" class="auth-input" placeholder="Password" />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-eye icon toggle-password"></i>
+          <i class="fa-solid fa-lock icon"></i>
+          <input
+            type="text"
+            class="auth-input"
+            placeholder="Confirm Password"
+          />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-image icon"></i>
+          <input
+            type="text"
+            class="auth-input"
+            placeholder="Profile Picture URL"
+          />
+        </div>
+        <div class="input-field two-col-input">
+          <i class="fa-solid fa-cart-shopping icon"></i>
+          <select name="role" id="role" class="auth-input">
+            <option value="buyer">Buyer</option>
+            <option value="seler">Seler</option>
+            <option value="mercedes">Both</option>
+          </select>
+        </div>
+
+        <button class="auth-button">Sign Up</button>
+
+        <div class="splitter"><span>OR</span></div>
+
+        <div class="other-option">
+          <span>Already have an account?</span>
+          <a href="">Sign In</a>
         </div>
       </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-id-badge icon"></i>
-        <input type="text" class="auth-input" placeholder="First Name" />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-id-badge icon"></i>
-        <input type="text" class="auth-input" placeholder="Last Name" />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-envelope icon"></i>
-        <input type="text" class="auth-input" placeholder="Email" />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-user icon"></i>
-        <input type="text" class="auth-input" placeholder="Username" />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-eye icon toggle-password"></i>
-        <i class="fa-solid fa-lock icon"></i>
-        <input type="text" class="auth-input" placeholder="Password" />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-eye icon toggle-password"></i>
-        <i class="fa-solid fa-lock icon"></i>
-        <input type="text" class="auth-input" placeholder="Confirm Password" />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-image icon"></i>
-        <input
-          type="text"
-          class="auth-input"
-          placeholder="Profile Picture URL"
-        />
-      </div>
-      <div class="input-field two-col-input">
-        <i class="fa-solid fa-cart-shopping icon"></i>
-        <select name="role" id="role" class="auth-input">
-          <option value="buyer">Buyer</option>
-          <option value="seler">Seler</option>
-          <option value="mercedes">Both</option>
-        </select>
-      </div>
-
-      <button class="auth-button">Sign Up</button>
-
-      <div class="splitter"><span>OR</span></div>
-
-      <div class="other-option">
-        <span>Already have an account?</span>
-        <a href="">Sign In</a>
-      </div>
-    </div>
+    </section>
   </body>
 </html>
