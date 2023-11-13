@@ -1,40 +1,7 @@
-:root {
-  --background-primary: #f5f5f5;
-  --background-seconday: lightgray;
-
-  --text-primary: #17181f;
-  --text-secondary: #8e8e93;
-}
-
-[data-theme="dark"] {
-  --background-primary: #17181f;
-  --background-seconday: #242429;
-
-  --text-primary: #f2f2f7;
-  --text-secondary: #aca1a1;
-}
-
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-body {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: var(--background-primary);
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: "Rubik", sans-serif;
-  transition: all 0.2s ease-in-out;
-}
-
 .auth-form {
   position: relative;
   width: 450px;
-  height: 600px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,6 +12,8 @@ body {
   box-shadow: 0px 0px 5px 5px var(--text-primary);
   -webkit-box-shadow: 0px 0px 5px 5px var(--text-primary);
   -moz-box-shadow: 0px 0px 5px 5px var(--text-primary);
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .auth-form-info {
@@ -101,7 +70,7 @@ body {
 
 .auth-button {
   position: relative;
-  width: 50%;
+  width: 25%;
   height: 40px;
   font-size: 18px;
   border-radius: 5px;
@@ -110,9 +79,101 @@ body {
   color: var(--text-primary);
   cursor: pointer;
   transition: 0.2s all ease-in-out;
+  text-transform: uppercase;
 }
 
 .auth-button:hover {
   background-color: var(--text-primary);
   color: var(--background-primary);
+  width: 50%;
+}
+
+.splitter {
+  width: 90%;
+  text-align: center;
+  border-bottom: 2px solid var(--text-secondary);
+  line-height: 0.1em;
+  margin: 10px 0 10px;
+}
+
+.splitter span {
+  background-color: var(--background-seconday);
+  padding: 0 10px;
+  font-weight: 700;
+}
+
+.other-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.other-option span {
+  font-size: 18px;
+}
+
+.other-option a {
+  text-decoration: none;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-size: 18px;
+  width: 50%;
+  height: 40px;
+  background-color: var(--background-seconday);
+  border: 1px solid var(--text-primary);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s all ease;
+}
+
+.other-option a:hover {
+  background-color: var(--text-primary);
+  color: var(--background-primary);
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.two-col {
+  width: 800px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.two-col-input {
+  width: 390px;
+}
+
+select {
+  cursor: pointer;
+}
+
+option {
+  color: var(--text-primary);
+  background-color: var(--background-primary);
+}
+
+@media only screen and (max-width: 900px) {
+  .auth-form {
+    width: 450px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .auth-form {
+    width: 350px;
+  }
 }

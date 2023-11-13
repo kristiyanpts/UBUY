@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/auth.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+  </head>
+  <body data-theme="dark">
+    <div class="auth-form two-col">
+      <div class="auth-form-info">
+        <div class="auth-form-title">Sign Up</div>
+        <div class="auth-form-desc">
+          Please, sign up using your email address to use our platform.
+        </div>
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-id-badge icon"></i>
+        <input type="text" class="auth-input" placeholder="First Name" />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-id-badge icon"></i>
+        <input type="text" class="auth-input" placeholder="Last Name" />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-envelope icon"></i>
+        <input type="text" class="auth-input" placeholder="Email" />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-user icon"></i>
+        <input type="text" class="auth-input" placeholder="Username" />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-eye icon toggle-password"></i>
+        <i class="fa-solid fa-lock icon"></i>
+        <input type="text" class="auth-input" placeholder="Password" />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-eye icon toggle-password"></i>
+        <i class="fa-solid fa-lock icon"></i>
+        <input type="text" class="auth-input" placeholder="Confirm Password" />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-image icon"></i>
+        <input
+          type="text"
+          class="auth-input"
+          placeholder="Profile Picture URL"
+        />
+      </div>
+      <div class="input-field two-col-input">
+        <i class="fa-solid fa-cart-shopping icon"></i>
+        <select name="role" id="role" class="auth-input">
+          <option value="buyer">Buyer</option>
+          <option value="seler">Seler</option>
+          <option value="mercedes">Both</option>
+        </select>
+      </div>
+
+      <button class="auth-button">Sign Up</button>
+
+      <div class="splitter"><span>OR</span></div>
+
+      <div class="other-option">
+        <span>Already have an account?</span>
+        <a href="">Sign In</a>
+      </div>
+    </div>
+  </body>
+</html>
