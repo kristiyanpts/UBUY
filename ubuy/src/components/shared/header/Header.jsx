@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ubuyLogo from "../../../assets/ubuy-logo.png";
 import "./Header.css";
 
@@ -15,12 +16,12 @@ const Header = () => {
         <a href="">
           <i className="fa-solid fa-address-book"></i> | Contact
         </a>
-        <a href="">
+        <Link to="/sign-in">
           <i className="fa-solid fa-right-to-bracket"></i> | Login
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/sign-up">
           <i className="fa-solid fa-user-plus"></i> | Register
-        </a>
+        </Link>
 
         <a href="">
           <i className="fa-solid fa-user"></i> | Kris
