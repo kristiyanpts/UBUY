@@ -64,6 +64,7 @@ const Home = () => {
               <div className="side">Quantity:</div>
               <div className="side">5</div>
             </div>
+            <div className="price">$1500,00</div>
             <button className="cart-button">
               <span className="add-to-cart">Add to cart</span>
               <span className="added">Added</span>
@@ -90,6 +91,7 @@ const Home = () => {
               <div className="side">Quantity:</div>
               <div className="side">5</div>
             </div>
+            <div className="price">$1500,00</div>
             <button className="cart-button">
               <span className="add-to-cart">Add to cart</span>
               <span className="added">Added</span>
@@ -116,6 +118,7 @@ const Home = () => {
               <div className="side">Quantity:</div>
               <div className="side">5</div>
             </div>
+            <div className="price">$1500,00</div>
             <button className="cart-button">
               <span className="add-to-cart">Add to cart</span>
               <span className="added">Added</span>
@@ -142,6 +145,7 @@ const Home = () => {
               <div className="side">Quantity:</div>
               <div className="side">5</div>
             </div>
+            <div className="price">$1500,00</div>
             <button className="cart-button">
               <span className="add-to-cart">Add to cart</span>
               <span className="added">Added</span>
@@ -168,6 +172,7 @@ const Home = () => {
               <div className="side">Quantity:</div>
               <div className="side">5</div>
             </div>
+            <div className="price">$1500,00</div>
             <button className="cart-button">
               <span className="add-to-cart">Add to cart</span>
               <span className="added">Added</span>

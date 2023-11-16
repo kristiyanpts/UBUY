@@ -23,6 +23,9 @@ const Header = () => {
           <i className="fa-solid fa-user-plus"></i> | Sign Up
         </Link>
 
+        <Link to="/cart">
+          <i className="fa-solid fa-cart-shopping"></i> | Cart
+        </Link>
         <a href="">
           <i className="fa-solid fa-user"></i> | Kris
         </a>
