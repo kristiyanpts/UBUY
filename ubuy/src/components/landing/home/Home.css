@@ -141,7 +141,6 @@
   color: #fff;
   transition: all 0.2s ease;
   overflow: hidden;
-  text-transform: uppercase;
   border: 1px solid var(--text-primary);
 }
 .cart-button:hover {
@@ -177,7 +176,7 @@
   z-index: 3;
   left: 50%;
   top: 50%;
-  font-size: 1.3em;
+  font-size: 1.5em;
   color: var(--text-primary);
   transform: translate(-50%, -50%);
 }
