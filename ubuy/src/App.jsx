@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import SignUp from "./components/user/signUp/SignUp";
 import Footer from "./components/shared/footer/Footer";
 import Home from "./components/landing/home/Home";
+import Contact from "./components/landing/contact/Contact";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -18,6 +19,7 @@ function App() {
       <section className="main-window">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>

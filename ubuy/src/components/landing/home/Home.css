@@ -14,7 +14,7 @@
 }
 
 .info {
-  background-color: var(--background-seconday);
+  background-color: var(--background-secondary);
   border-radius: 5px;
   padding: 20px;
   box-sizing: border-box;
@@ -99,7 +99,7 @@
 .recent-products .products .product {
   height: fit-content;
   width: 350px;
-  background-color: var(--background-seconday);
+  background-color: var(--background-secondary);
   border-radius: 5px;
   padding: 15px;
   box-sizing: border-box;

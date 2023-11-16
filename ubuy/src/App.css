@@ -2,7 +2,7 @@
 
 :root {
   --background-primary: #f5f5f5;
-  --background-seconday: lightgray;
+  --background-secondary: lightgray;
 
   --text-primary: #17181f;
   --text-secondary: #8e8e93;
@@ -10,7 +10,7 @@
 
 [data-theme="dark"] {
   --background-primary: #131318;
-  --background-seconday: #17181f;
+  --background-secondary: #17181f;
 
   --text-primary: #f2f2f7;
   --text-secondary: #aca1a1;

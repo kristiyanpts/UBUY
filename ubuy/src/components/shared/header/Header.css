@@ -23,7 +23,7 @@ header .navlist a {
   width: fit-content;
   padding: 15px 20px 15px 20px;
   font-size: 18px;
-  background-color: var(--background-seconday);
+  background-color: var(--background-secondary);
   border-radius: 5px;
   text-decoration: none;
   color: var(--text-primary);
@@ -39,7 +39,7 @@ header .navlist a:hover {
 header .nav-menu-button {
   width: 50px;
   height: 50px;
-  background-color: var(--background-seconday);
+  background-color: var(--background-secondary);
   color: var(--text-primary);
   border: 1px solid var(--text-primary);
   border-radius: 5px;
