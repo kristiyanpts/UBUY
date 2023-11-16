@@ -10,5 +10,5 @@ body {
   font-family: "Rubik", sans-serif;
   transition: all 0.2s ease-in-out;
   overflow-x: hidden !important;
-  overflow-y: auto;
+  overflow-y: hidden !important;
 }

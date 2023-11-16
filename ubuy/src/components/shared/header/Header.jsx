@@ -7,20 +7,20 @@ const Header = () => {
     <header>
       <img src={ubuyLogo} alt="" className="logo" />
       <nav className="navlist">
-        <a href="">
+        <Link to="/">
           <i className="fa-solid fa-house"></i> | Home
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/market">
           <i className="fa-solid fa-shop"></i> | Market
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/contact">
           <i className="fa-solid fa-address-book"></i> | Contact
-        </a>
+        </Link>
         <Link to="/sign-in">
-          <i className="fa-solid fa-right-to-bracket"></i> | Login
+          <i className="fa-solid fa-right-to-bracket"></i> | Sign In
         </Link>
         <Link to="/sign-up">
-          <i className="fa-solid fa-user-plus"></i> | Register
+          <i className="fa-solid fa-user-plus"></i> | Sign Up
         </Link>
 
         <a href="">

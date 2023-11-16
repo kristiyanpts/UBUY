@@ -1,7 +1,5 @@
 .button-container {
-  position: fixed;
-  right: 30px;
-  bottom: 10px;
+  position: relative;
   z-index: 20;
 }
 

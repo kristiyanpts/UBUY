@@ -1,0 +1,36 @@
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  padding: 20px 50px 0px 30px;
+  box-sizing: border-box;
+  z-index: 21;
+}
+
+footer .side {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+footer .side .link {
+  font-size: 26px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+footer .side .link:hover {
+  color: var(--text-secondary);
+}
+
+@media only screen and (max-width: 950px) {
+  footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
