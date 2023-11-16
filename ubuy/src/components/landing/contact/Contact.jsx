@@ -39,8 +39,38 @@ const Contact = () => {
             cols={30}
             rows={10}
             className="input-area"
-            placeholder="I have the following problem......"
+            placeholder="I have the following problem..."
           ></textarea>
+        </div>
+        <button className="submit-contact">Send Message</button>
+      </div>
+      <div className="contact-splitter">
+        <span>OR</span>
+      </div>
+      <div className="findus-wrapper">
+        <div className="contact-title">Find Us At</div>
+        <div className="findus-blocks">
+          <div className="findus-block">
+            <div className="icon">
+              <i className="fa-solid fa-envelope"></i>
+            </div>
+            <div className="title">Email</div>
+            <div className="desc">ubuy@ubuy.com</div>
+          </div>
+          <div className="findus-block">
+            <div className="icon">
+              <i className="fa-solid fa-location-dot"></i>
+            </div>
+            <div className="title">Location</div>
+            <div className="desc">Petrich, Bulgaria</div>
+          </div>
+          <div className="findus-block">
+            <div className="icon">
+              <i className="fa-solid fa-phone"></i>
+            </div>
+            <div className="title">Phone</div>
+            <div className="desc">+359 87 123 4567</div>
+          </div>
         </div>
       </div>
     </div>
