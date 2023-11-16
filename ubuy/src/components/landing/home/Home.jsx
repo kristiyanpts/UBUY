@@ -13,6 +13,10 @@ const Home = () => {
   //     button.classList.add("clicked");
   //   }
 
+  // function addToCart(e) {
+  //   e.target.classList.add("clicked");
+  // }
+
   return (
     <div className="home-wrapper">
       <div className="about-us">
