@@ -76,4 +76,8 @@ header .nav-menu-button {
   header .nav-menu-button {
     display: block;
   }
+
+  header {
+    padding-right: 20px;
+  }
 }

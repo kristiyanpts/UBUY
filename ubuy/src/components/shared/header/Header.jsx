@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
 import ubuyLogo from "../../../assets/ubuy-logo.png";
 import "./Header.css";
+import { useState } from "react";
 
 const Header = () => {
+  let [isMenuShown, setIsMenuShown] = useState(false);
+
+  function toggleMenu() {
+    setIsMenuShown(!isMenuShown);
+  }
+
   return (
     <header>
       <img src={ubuyLogo} alt="" className="logo" />
-      <nav className="navlist">
+      <nav className={"navlist " + (isMenuShown ? "selected" : null)}>
         <Link to="/">
           <i className="fa-solid fa-house"></i> | Home
         </Link>
@@ -31,7 +38,7 @@ const Header = () => {
         </a>
       </nav>
 
-      <button className="nav-menu-button">
+      <button className="nav-menu-button" onClick={toggleMenu}>
         <i className="fa-solid fa-bars"></i>
       </button>
     </header>
