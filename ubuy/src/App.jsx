@@ -10,6 +10,7 @@ import Home from "./components/landing/home/Home";
 import Contact from "./components/landing/contact/Contact";
 import Profile from "./components/user/profile/Profile";
 import Cart from "./components/product/cart/Cart";
+import Catalog from "./components/product/catalog/Catalog";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/users" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/market" element={<Catalog />} />
         </Routes>
       </section>
 

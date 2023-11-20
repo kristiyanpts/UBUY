@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -64,7 +65,7 @@ const SignUp = () => {
 
       <div className="other-option">
         <span>Already have an account?</span>
-        <a href="">Sign In</a>
+        <Link to="/sign-in">Sign In</Link>
       </div>
     </div>
   );
