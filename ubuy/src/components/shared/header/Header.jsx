@@ -33,9 +33,9 @@ const Header = () => {
         <Link to="/cart">
           <i className="fa-solid fa-cart-shopping"></i> | Cart
         </Link>
-        <a href="">
+        <Link to="/users">
           <i className="fa-solid fa-user"></i> | Kris
-        </a>
+        </Link>
       </nav>
 
       <button className="nav-menu-button" onClick={toggleMenu}>

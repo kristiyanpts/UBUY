@@ -20,6 +20,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px;
+  border: 1px solid var(--text-primary);
 }
 
 .contact-title {
@@ -106,6 +107,7 @@ textarea {
   padding: 20px;
   box-sizing: border-box;
   gap: 20px;
+  border: 1px solid var(--text-primary);
 }
 
 .findus-blocks {

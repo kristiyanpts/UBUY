@@ -9,11 +9,12 @@
   background-color: var(--background-secondary);
   border-radius: 5px;
   gap: 20px;
-  box-shadow: 0px 0px 5px 5px var(--text-primary);
+  /* box-shadow: 0px 0px 5px 5px var(--text-primary);
   -webkit-box-shadow: 0px 0px 5px 5px var(--text-primary);
-  -moz-box-shadow: 0px 0px 5px 5px var(--text-primary);
+  -moz-box-shadow: 0px 0px 5px 5px var(--text-primary); */
   padding-top: 30px;
   padding-bottom: 30px;
+  border: 1px solid var(--text-primary);
 }
 
 .auth-form-info {

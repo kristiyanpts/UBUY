@@ -8,12 +8,18 @@ import SignUp from "./components/user/signUp/SignUp";
 import Footer from "./components/shared/footer/Footer";
 import Home from "./components/landing/home/Home";
 import Contact from "./components/landing/contact/Contact";
+import Profile from "./components/user/profile/Profile";
+import Cart from "./components/product/cart/Cart";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { theme } = useContext(ThemeContext);
 
   return (
     <div className="container" data-theme={theme}>
+      <div>
+        <Toaster position="bottom-right" reverseOrder={true} />
+      </div>
       <Header />
 
       <section className="main-window">
@@ -22,6 +28,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/users" element={<Profile />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </section>
 
