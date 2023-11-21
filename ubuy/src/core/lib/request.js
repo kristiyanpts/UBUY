@@ -5,6 +5,7 @@ const buildOptions = (data) => {
     options.body = JSON.stringify(data);
     options.headers = {
       "content-type": "application/json",
+      credentials: "include",
     };
   }
 

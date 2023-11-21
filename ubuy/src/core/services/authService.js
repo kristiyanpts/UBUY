@@ -1,4 +1,4 @@
-import { API_BASEURL } from "core/constants/api.constants";
+import { API_BASEURL } from "../constants/api.constants";
 import * as request from "../lib/request";
 
 export const login = async (email, password) => {
@@ -31,4 +31,4 @@ export const register = (
     role,
   });
 
-export const logout = () => request.get(`${API_BASEURL}/logout`);
+export const logout = () => request.post(`${API_BASEURL}/logout`);

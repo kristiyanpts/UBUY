@@ -110,9 +110,6 @@ const Details = () => {
               </div>
               <div className="review-controls">
                 <button className="review-control">
-                  <i className="fa-solid fa-heart"></i> Like
-                </button>
-                <button className="review-control">
                   <i className="fa-solid fa-trash"></i> Delete
                 </button>
               </div>
@@ -136,9 +133,6 @@ const Details = () => {
                 asdasdthis asdasdthis asdasdthis asdasd
               </div>
               <div className="review-controls">
-                <button className="review-control">
-                  <i className="fa-solid fa-heart"></i> Like
-                </button>
                 <button className="review-control">
                   <i className="fa-solid fa-trash"></i> Delete
                 </button>
