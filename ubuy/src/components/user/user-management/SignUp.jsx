@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./SignUp.css";
+import "./UserManagement.css";
 
 const SignUp = () => {
   return (
@@ -53,7 +53,7 @@ const SignUp = () => {
         <select name="role" id="role" className="auth-input">
           <option value="buyer">Buyer</option>
           <option value="seler">Seler</option>
-          <option value="mercedes">Both</option>
+          <option value="both">Both</option>
         </select>
       </div>
 

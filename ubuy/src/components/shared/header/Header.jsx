@@ -20,6 +20,9 @@ const Header = () => {
         <Link to="/market">
           <i className="fa-solid fa-shop"></i> | Market
         </Link>
+        <Link to="/create">
+          <i className="fa-solid fa-circle-plus"></i> | Add Listing
+        </Link>
         <Link to="/contact">
           <i className="fa-solid fa-address-book"></i> | Contact
         </Link>

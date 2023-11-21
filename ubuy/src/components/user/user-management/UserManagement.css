@@ -9,11 +9,9 @@
   background-color: var(--background-secondary);
   border-radius: 5px;
   gap: 20px;
-  /* box-shadow: 0px 0px 5px 5px var(--text-primary);
-  -webkit-box-shadow: 0px 0px 5px 5px var(--text-primary);
-  -moz-box-shadow: 0px 0px 5px 5px var(--text-primary); */
   padding-top: 30px;
   padding-bottom: 30px;
+  border: 1px solid var(--text-primary);
 }
 
 .auth-form-info {
@@ -154,7 +152,7 @@
 }
 
 .two-col-input {
-  width: 390px;
+  width: 360px;
 }
 
 select {
@@ -168,12 +166,28 @@ option {
 
 @media only screen and (max-width: 900px) {
   .auth-form {
-    width: 450px;
+    width: 450px !important;
+  }
+
+  .two-col {
+    width: 450px !important;
+  }
+
+  .auth-button {
+    width: 50% !important;
+  }
+
+  .auth-button:hover {
+    width: 90% !important;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .auth-form {
-    width: 350px;
+    width: 350px !important;
+  }
+
+  .two-col {
+    width: 350px !important;
   }
 }

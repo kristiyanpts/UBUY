@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Catalog.css";
 import { MuiThemeProvider, Slider, createMuiTheme } from "@material-ui/core";
+import Product from "../../shared/product/Product";
 
 const muiTheme = createMuiTheme({
   overrides: {
@@ -20,6 +21,7 @@ const muiTheme = createMuiTheme({
 
 const Catalog = () => {
   const [priceValue, setPriceValue] = useState([0, 1000]);
+  const [toggleFilters, setToggleFilters] = useState(false);
 
   const rangeSelector = (event, newValue) => {
     setPriceValue(newValue);
@@ -27,7 +29,17 @@ const Catalog = () => {
 
   return (
     <div className="catalog-wrapper">
-      <div className="filters">
+      <div className={`filters ${toggleFilters ? "shown" : ""}`}>
+        <button
+          className="toggle-filters"
+          onClick={() => setToggleFilters(!toggleFilters)}
+        >
+          <i
+            className={`fa-solid ${
+              toggleFilters ? "fa-angles-up" : "fa-angles-down"
+            }`}
+          ></i>
+        </button>
         <div className="title">Filters</div>
         <div className="filter-options">
           <div className="name">Category</div>
@@ -130,6 +142,13 @@ const Catalog = () => {
             </select>
           </div>
         </div>
+      </div>
+      <div className="products-wrapper">
+        <Product data={{ 1: 2 }}></Product>
+        <Product data={{ 1: 2 }}></Product>
+        <Product data={{ 1: 2 }}></Product>
+        <Product data={{ 1: 2 }}></Product>
+        <Product data={{ 1: 2 }}></Product>
       </div>
     </div>
   );
