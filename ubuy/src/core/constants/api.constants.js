@@ -1,4 +1,5 @@
-export const API_BASEURL = "http://localhost:3000/api";
+// Local Developemtn
+// export const API_BASEURL = "http://localhost:3000/api";
 
-// TODO: Replace with hosted server
-// export const API_BASEURL = "";
+// Production Build
+export const API_BASEURL = "https://ubuy-api.onrender.com/api";
