@@ -2,7 +2,7 @@ import usePersistedState from "../hooks/userPersistedState";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as authService from "../services/authService";
-import { EMAIL_REGEX_VALIDATOR } from "../constants/api.constants";
+import { EMAIL_REGEX_VALIDATOR, URL_PATTERN } from "../constants/api.constants";
 import {
   SendErrorNotification,
   SendSuccessNotification,
@@ -41,6 +41,34 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerSubmitHandler = async (values) => {
+    // Validating values
+    if (values.firstName.length < 2 || values.lastName.length < 2) {
+      return SendErrorNotification(
+        `First and last name must be at least 2 characters long!`
+      );
+    }
+
+    if (values.username.length < 5) {
+      return SendErrorNotification(
+        `Username must be at least 5 characters long!`
+      );
+    }
+
+    if (!EMAIL_REGEX_VALIDATOR.test(values.email)) {
+      return SendErrorNotification(`Invalid email format!`);
+    }
+
+    if (values.password.length < 5 || values.repeatPassword.length < 5) {
+      return SendErrorNotification(
+        `Passwords must be at least 5 characters long!`
+      );
+    }
+
+    if (!URL_PATTERN.test(values.pfpUrl)) {
+      return SendErrorNotification(`Profile picture URL is invalid!`);
+    }
+
+    // Back-End Request
     const result = await authService.register(
       values.firstName,
       values.lastName,

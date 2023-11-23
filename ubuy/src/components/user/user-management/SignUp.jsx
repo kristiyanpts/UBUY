@@ -2,21 +2,35 @@ import { Link } from "react-router-dom";
 import "./UserManagement.css";
 
 import { useForm } from "../../../core/hooks/useForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AuthContext from "../../../core/contexts/authContext";
+
+const SignUpFormKyes = {
+  FirstName: "firstName",
+  LastName: "lastName",
+  Email: "email",
+  Username: "username",
+  Password: "password",
+  RepeatPassword: "repeatPassword",
+  PfpUrl: "pfpUrl",
+  Role: "role",
+};
 
 const SignUp = () => {
   const { registerSubmitHandler } = useContext(AuthContext);
   const { values, onChange, onSubmit } = useForm(registerSubmitHandler, {
-    firstName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    password: "",
-    repeatPassword: "",
-    pfpUrl: "",
-    role: "",
+    [SignUpFormKyes.FirstName]: "",
+    [SignUpFormKyes.LastName]: "",
+    [SignUpFormKyes.Email]: "",
+    [SignUpFormKyes.Username]: "",
+    [SignUpFormKyes.Password]: "",
+    [SignUpFormKyes.RepeatPassword]: "",
+    [SignUpFormKyes.PfpUrl]: "",
+    [SignUpFormKyes.Role]: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   return (
     <form className="auth-form two-col" onSubmit={onSubmit}>
@@ -32,9 +46,9 @@ const SignUp = () => {
           type="text"
           className="auth-input"
           placeholder="First Name"
-          name="firstName"
+          name={SignUpFormKyes.FirstName}
           onChange={onChange}
-          value={values["firstName"]}
+          value={values[SignUpFormKyes.FirstName]}
         />
       </div>
       <div className="input-field two-col-input">
@@ -43,9 +57,9 @@ const SignUp = () => {
           type="text"
           className="auth-input"
           placeholder="Last Name"
-          name="lastName"
+          name={SignUpFormKyes.LastName}
           onChange={onChange}
-          value={values["lastName"]}
+          value={values[SignUpFormKyes.LastName]}
         />
       </div>
       <div className="input-field two-col-input">
@@ -54,9 +68,9 @@ const SignUp = () => {
           type="text"
           className="auth-input"
           placeholder="Email"
-          name="email"
+          name={SignUpFormKyes.Email}
           onChange={onChange}
-          value={values["email"]}
+          value={values[SignUpFormKyes.Email]}
         />
       </div>
       <div className="input-field two-col-input">
@@ -65,33 +79,39 @@ const SignUp = () => {
           type="text"
           className="auth-input"
           placeholder="Username"
-          name="username"
+          name={SignUpFormKyes.Username}
           onChange={onChange}
-          value={values["username"]}
+          value={values[SignUpFormKyes.Username]}
         />
       </div>
       <div className="input-field two-col-input">
-        <i className="fa-solid fa-eye icon toggle-password"></i>
+        <i
+          className="fa-solid fa-eye icon toggle-password"
+          onClick={() => setShowPassword(!showPassword)}
+        ></i>
         <i className="fa-solid fa-lock icon"></i>
         <input
-          type="text"
+          type={showPassword ? "text" : "password"}
           className="auth-input"
           placeholder="Password"
-          name="password"
+          name={SignUpFormKyes.Password}
           onChange={onChange}
-          value={values["password"]}
+          value={values[SignUpFormKyes.Password]}
         />
       </div>
       <div className="input-field two-col-input">
-        <i className="fa-solid fa-eye icon toggle-password"></i>
+        <i
+          className="fa-solid fa-eye icon toggle-password"
+          onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+        ></i>
         <i className="fa-solid fa-lock icon"></i>
         <input
-          type="text"
+          type={showRepeatPassword ? "text" : "password"}
           className="auth-input"
           placeholder="Confirm Password"
-          name="repeatPassword"
+          name={SignUpFormKyes.RepeatPassword}
           onChange={onChange}
-          value={values["repeatPassword"]}
+          value={values[SignUpFormKyes.RepeatPassword]}
         />
       </div>
       <div className="input-field two-col-input">
@@ -100,19 +120,19 @@ const SignUp = () => {
           type="text"
           className="auth-input"
           placeholder="Profile Picture URL"
-          name="pfpUrl"
+          name={SignUpFormKyes.PfpUrl}
           onChange={onChange}
-          value={values["pfpUrl"]}
+          value={values[SignUpFormKyes.PfpUrl]}
         />
       </div>
       <div className="input-field two-col-input">
         <i className="fa-solid fa-cart-shopping icon"></i>
         <select
-          name="role"
+          name={SignUpFormKyes.Role}
           id="role"
           className="auth-input"
           onChange={onChange}
-          value={values["role"]}
+          value={values[SignUpFormKyes.Role]}
         >
           <option value="buyer">Buyer</option>
           <option value="seller">Seler</option>
