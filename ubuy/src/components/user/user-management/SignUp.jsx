@@ -26,7 +26,7 @@ const SignUp = () => {
     [SignUpFormKyes.Password]: "",
     [SignUpFormKyes.RepeatPassword]: "",
     [SignUpFormKyes.PfpUrl]: "",
-    [SignUpFormKyes.Role]: "",
+    [SignUpFormKyes.Role]: "buyer",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -135,7 +135,7 @@ const SignUp = () => {
           value={values[SignUpFormKyes.Role]}
         >
           <option value="buyer">Buyer</option>
-          <option value="seller">Seler</option>
+          <option value="seller">Seller</option>
           <option value="both">Both</option>
         </select>
       </div>

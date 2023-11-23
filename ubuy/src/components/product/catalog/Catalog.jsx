@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Catalog.css";
-import { MuiThemeProvider, Slider, createMuiTheme } from "@material-ui/core";
+import { MuiThemeProvider, Slider, createTheme } from "@material-ui/core";
 import Product from "../../shared/product/Product";
+import { parseError } from "../../../core/lib/errorParser";
+import { SendErrorNotification } from "../../../core/notifications/notifications";
 
-const muiTheme = createMuiTheme({
+import * as productService from "../../../core/services/productService";
+
+const muiTheme = createTheme({
   overrides: {
     MuiSlider: {
       thumb: {
@@ -22,10 +26,24 @@ const muiTheme = createMuiTheme({
 const Catalog = () => {
   const [priceValue, setPriceValue] = useState([0, 1000]);
   const [toggleFilters, setToggleFilters] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const rangeSelector = (event, newValue) => {
     setPriceValue(newValue);
   };
+
+  useEffect(() => {
+    productService
+      .getProducts()
+      .then((result) => setProducts(result))
+      .catch((error) => {
+        let errors = parseError(error);
+
+        errors.forEach((err) => {
+          SendErrorNotification(err);
+        });
+      });
+  }, []);
 
   return (
     <div className="catalog-wrapper">
@@ -144,11 +162,10 @@ const Catalog = () => {
         </div>
       </div>
       <div className="products-wrapper">
-        <Product data={{ 1: 2 }}></Product>
-        <Product data={{ 1: 2 }}></Product>
-        <Product data={{ 1: 2 }}></Product>
-        <Product data={{ 1: 2 }}></Product>
-        <Product data={{ 1: 2 }}></Product>
+        {products.length > 0 &&
+          products.map((product) => (
+            <Product key={product._id} {...product}></Product>
+          ))}
       </div>
     </div>
   );

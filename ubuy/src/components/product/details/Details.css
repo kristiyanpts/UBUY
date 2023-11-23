@@ -318,6 +318,123 @@
   transition: 0.2s all ease;
 }
 
+.cart-button {
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  border: 0;
+  border-radius: 5px;
+  background-color: var(--background-primary);
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  border: 1px solid var(--text-primary);
+  text-transform: capitalize;
+}
+.cart-button:hover {
+  background-color: var(--text-primary);
+  color: var(--background-primary) !important;
+}
+.cart-button:hover span {
+  color: var(--background-primary) !important;
+}
+.cart-button:active {
+  transform: scale(0.9);
+}
+
+.cart-button .fa-shopping-cart {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: -10%;
+  font-size: 2em;
+  transform: translate(-50%, -50%);
+}
+.cart-button .fa-box {
+  position: absolute;
+  z-index: 3;
+  top: -20%;
+  left: 52%;
+  font-size: 1.2em;
+  transform: translate(-50%, -50%);
+}
+.cart-button span {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  font-size: 1.5em;
+  color: var(--text-primary);
+  transform: translate(-50%, -50%);
+}
+.cart-button span.add-to-cart {
+  opacity: 1;
+}
+.cart-button span.added {
+  opacity: 0;
+}
+
+.cart-button.clicked .fa-shopping-cart {
+  animation: cart 1.5s ease-in-out forwards;
+}
+.cart-button.clicked .fa-box {
+  animation: box 1.5s ease-in-out forwards;
+}
+.cart-button.clicked span.add-to-cart {
+  animation: txt1 1.5s ease-in-out forwards;
+}
+.cart-button.clicked span.added {
+  animation: txt2 1.5s ease-in-out forwards;
+}
+@keyframes cart {
+  0% {
+    left: -10%;
+  }
+  40%,
+  60% {
+    left: 50%;
+  }
+  100% {
+    left: 110%;
+  }
+}
+@keyframes box {
+  0%,
+  40% {
+    top: -20%;
+  }
+  60% {
+    top: 40%;
+    left: 52%;
+  }
+  100% {
+    top: 40%;
+    left: 112%;
+  }
+}
+@keyframes txt1 {
+  0% {
+    opacity: 1;
+  }
+  20%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes txt2 {
+  0%,
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media only screen and (max-width: 1300px) {
   .top-part {
     justify-content: center;

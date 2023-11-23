@@ -40,8 +40,8 @@ function App() {
 
             {/* Product Navs */}
             <Route path="/market" element={<Catalog />} />
-            <Route path="/market/:listingId/edit" element={<Edit />} />
-            <Route path="/market/:listingId/details" element={<Details />} />
+            <Route path="/market/:productId/edit" element={<Edit />} />
+            <Route path="/market/:productId/details" element={<Details />} />
             <Route path="/create" element={<Create />} />
             <Route path="/cart" element={<Cart />} />
 

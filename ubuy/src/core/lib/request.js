@@ -5,7 +5,6 @@ const buildOptions = (data) => {
     options.body = JSON.stringify(data);
     options.headers = {
       "content-type": "application/json",
-      credentials: "include",
     };
   }
 
@@ -25,6 +24,7 @@ const request = async (method, url, data) => {
   const response = await fetch(url, {
     ...buildOptions(data),
     method,
+    credentials: "include",
   });
 
   if (response.status === 204) {

@@ -1,21 +1,28 @@
+import { useEffect, useState } from "react";
 import peopleShopping from "../../../assets/people-shopping.png";
 import "./Home.css";
+import Product from "../../shared/product/Product";
+
+import { parseError } from "../../../core/lib/errorParser";
+import { SendErrorNotification } from "../../../core/notifications/notifications";
+
+import * as productService from "../../../core/services/productService";
 
 const Home = () => {
-  //   const cartButtons = document.querySelectorAll(".cart-button");
+  const [products, setProducts] = useState([]);
 
-  //   cartButtons.forEach((button) => {
-  //     button.addEventListener("click", cartClick);
-  //   });
+  useEffect(() => {
+    productService
+      .getProductsByLimit(5)
+      .then((result) => setProducts(result))
+      .catch((error) => {
+        let errors = parseError(error);
 
-  //   function cartClick() {
-  //     let button = this;
-  //     button.classList.add("clicked");
-  //   }
-
-  // function addToCart(e) {
-  //   e.target.classList.add("clicked");
-  // }
+        errors.forEach((err) => {
+          SendErrorNotification(err);
+        });
+      });
+  }, []);
 
   return (
     <div className="home-wrapper">
@@ -49,141 +56,10 @@ const Home = () => {
       <div className="recent-products">
         <div className="title">Recently Listed Products</div>
         <div className="products">
-          <div className="product">
-            <img
-              src="https://cdncloudcart.com/402/products/images/77310/konzola-playstation-5-image_5fad136c1c553_600x600.jpeg?1605178237"
-              alt=""
-              className="product-img"
-            />
-            <div className="name">Playstation 5</div>
-            <div className="product-info">
-              <div className="side">Listed By:</div>
-              <div className="side">Kris</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Listed On: </div>
-              <div className="side">12/12/1222</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Quantity:</div>
-              <div className="side">5</div>
-            </div>
-            <div className="price">$1500,00</div>
-            <button className="cart-button">
-              <span className="add-to-cart">Add to cart</span>
-              <span className="added">Added</span>
-              <i className="fas fa-shopping-cart"></i>
-              <i className="fas fa-box"></i>
-            </button>
-          </div>
-          <div className="product">
-            <img
-              src="https://cdncloudcart.com/402/products/images/77310/konzola-playstation-5-image_5fad136c1c553_600x600.jpeg?1605178237"
-              alt=""
-              className="product-img"
-            />
-            <div className="name">Playstation 5</div>
-            <div className="product-info">
-              <div className="side">Listed By:</div>
-              <div className="side">Kris</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Listed On: </div>
-              <div className="side">12/12/1222</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Quantity:</div>
-              <div className="side">5</div>
-            </div>
-            <div className="price">$1500,00</div>
-            <button className="cart-button">
-              <span className="add-to-cart">Add to cart</span>
-              <span className="added">Added</span>
-              <i className="fas fa-shopping-cart"></i>
-              <i className="fas fa-box"></i>
-            </button>
-          </div>
-          <div className="product">
-            <img
-              src="https://cdncloudcart.com/402/products/images/77310/konzola-playstation-5-image_5fad136c1c553_600x600.jpeg?1605178237"
-              alt=""
-              className="product-img"
-            />
-            <div className="name">Playstation 5</div>
-            <div className="product-info">
-              <div className="side">Listed By:</div>
-              <div className="side">Kris</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Listed On: </div>
-              <div className="side">12/12/1222</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Quantity:</div>
-              <div className="side">5</div>
-            </div>
-            <div className="price">$1500,00</div>
-            <button className="cart-button">
-              <span className="add-to-cart">Add to cart</span>
-              <span className="added">Added</span>
-              <i className="fas fa-shopping-cart"></i>
-              <i className="fas fa-box"></i>
-            </button>
-          </div>
-          <div className="product">
-            <img
-              src="https://cdncloudcart.com/402/products/images/77310/konzola-playstation-5-image_5fad136c1c553_600x600.jpeg?1605178237"
-              alt=""
-              className="product-img"
-            />
-            <div className="name">Playstation 5</div>
-            <div className="product-info">
-              <div className="side">Listed By:</div>
-              <div className="side">Kris</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Listed On: </div>
-              <div className="side">12/12/1222</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Quantity:</div>
-              <div className="side">5</div>
-            </div>
-            <div className="price">$1500,00</div>
-            <button className="cart-button">
-              <span className="add-to-cart">Add to cart</span>
-              <span className="added">Added</span>
-              <i className="fas fa-shopping-cart"></i>
-              <i className="fas fa-box"></i>
-            </button>
-          </div>
-          <div className="product">
-            <img
-              src="https://cdncloudcart.com/402/products/images/77310/konzola-playstation-5-image_5fad136c1c553_600x600.jpeg?1605178237"
-              alt=""
-              className="product-img"
-            />
-            <div className="name">Playstation 5</div>
-            <div className="product-info">
-              <div className="side">Listed By:</div>
-              <div className="side">Kris</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Listed On: </div>
-              <div className="side">12/12/1222</div>
-            </div>
-            <div className="product-info">
-              <div className="side">Quantity:</div>
-              <div className="side">5</div>
-            </div>
-            <div className="price">$1500,00</div>
-            <button className="cart-button">
-              <span className="add-to-cart">Add to cart</span>
-              <span className="added">Added</span>
-              <i className="fas fa-shopping-cart"></i>
-              <i className="fas fa-box"></i>
-            </button>
-          </div>
+          {products.length > 0 &&
+            products.map((product) => (
+              <Product key={product._id} {...product}></Product>
+            ))}
         </div>
       </div>
     </div>

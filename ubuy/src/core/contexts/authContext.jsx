@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
     repeatPassword: auth.repeatPassword,
     pfpUrl: auth.pfpUrl,
     role: auth.role,
-    id: auth._id,
+    userId: auth._id,
     isAuthenticated: !!auth._id,
   };
 

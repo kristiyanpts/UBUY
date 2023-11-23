@@ -1,63 +1,105 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Details.css";
+import { useContext, useEffect, useState } from "react";
+
+import { parseError } from "../../../core/lib/errorParser";
+import { SendErrorNotification } from "../../../core/notifications/notifications";
+
+import * as productService from "../../../core/services/productService";
+import AuthContext from "../../../core/contexts/authContext";
 
 const Details = () => {
+  //   const cartButtons = document.querySelectorAll(".cart-button");
+
+  //   cartButtons.forEach((button) => {
+  //     button.addEventListener("click", cartClick);
+  //   });
+
+  //   function cartClick() {
+  //     let button = this;
+  //     button.classList.add("clicked");
+  //   }
+
+  // function addToCart(e) {
+  //   e.target.classList.add("clicked");
+  // }
+
+  const { productId } = useParams();
+  const { userId } = useContext(AuthContext);
+  const [product, setProduct] = useState({
+    name: "",
+    description: "",
+    quantity: 0,
+    date: "",
+    price: 0,
+    category: "",
+    imageURL: "",
+    owner: {},
+    buyers: [],
+  });
+
+  useEffect(() => {
+    console.log("zdr?");
+    productService
+      .getProductById(productId)
+      .then(setProduct)
+      .catch((error) => {
+        let errors = parseError(error);
+
+        errors.forEach((err) => {
+          SendErrorNotification(err);
+        });
+      });
+  }, [productId]);
+
+  console.log(product);
+
   return (
     <div className="details-wrapper">
       <div className="top-part">
         <div className="product-details">
           <div className="main-info">
-            <img
-              src="https://cdncloudcart.com/402/products/images/77310/konzola-playstation-5-image_5fad136c1c553_600x600.jpeg?1605178237"
-              className="product-image"
-            ></img>
+            <img src={product.imageURL} className="product-image"></img>
             <div className="product-information">
-              <div className="title">Playstation 5</div>
+              <div className="title">{product.name}</div>
               <div className="product-info">
                 <div className="side left">Listed By:</div>
                 <div className="side">
-                  <Link to="/users/123123" className="author">
-                    Kristiyan Petsanov
+                  <Link to={`/users/${product.owner._id}`} className="author">
+                    {product.owner.firstName} {product.owner.lastName}
                   </Link>
                 </div>
               </div>
               <div className="product-info">
                 <div className="side left">Listed On: </div>
-                <div className="side">12/12/1222</div>
+                <div className="side">
+                  {new Date(product.date).toLocaleDateString()}
+                </div>
               </div>
               <div className="product-info">
                 <div className="side left">Quantity:</div>
-                <div className="side">5</div>
+                <div className="side">{product.quantity}</div>
               </div>
               <div className="product-info">
                 <div className="side left">Category:</div>
-                <div className="side">Gaming</div>
+                <div className="side">{product.category}</div>
               </div>
               <div className="product-info">
                 <div className="side left">Bought By:</div>
-                <div className="side">5 people</div>
+                <div className="side">{product.buyers.length} people</div>
               </div>
             </div>
           </div>
           <div className="adit-info">
             <div className="title">Description</div>
-            <div className="desc">
-              This is my description. This is my description. This is my
-              description. This is my description. This is my description. This
-              is my description. This is my description. This is my description.
-              This is my description. This is my description. This is my
-              description. This is my description. This is my description. This
-              is my description. This is my description. This is my description.
-              This is my description. This is my description. This is my
-              description. This is my description. This is my description.{" "}
-            </div>
+            <div className="desc">{product.description}</div>
           </div>
         </div>
         <div className="product-buy-options">
           <div className="title">Buying Options</div>
           <div className="price">
             <span>Unit Price:</span>
-            <span>$1500,00</span>
+            <span>${product.price}</span>
           </div>
           <button className="cart-button">
             <span className="add-to-cart">Add to cart</span>
@@ -67,13 +109,17 @@ const Details = () => {
           </button>
 
           {/* Owner options */}
-          <div className="title">Listing Management</div>
-          <button className="manage-button">
-            <i className="fa-solid fa-pen-to-square"></i> Edit Listing
-          </button>
-          <button className="manage-button">
-            <i className="fa-solid fa-trash"></i> Delete Listing
-          </button>
+          {product.owner._id == userId && (
+            <>
+              <div className="title">Listing Management</div>
+              <button className="manage-button">
+                <i className="fa-solid fa-pen-to-square"></i> Edit Listing
+              </button>
+              <button className="manage-button">
+                <i className="fa-solid fa-trash"></i> Delete Listing
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div className="bottom-part">
