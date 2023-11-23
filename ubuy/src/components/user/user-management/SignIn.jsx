@@ -5,11 +5,17 @@ import { useForm } from "../../../core/hooks/useForm";
 import { useContext } from "react";
 import AuthContext from "../../../core/contexts/authContext";
 
+const LoginFormKyes = {
+  Email: "email",
+  Password: "password",
+};
+
 const SignIn = () => {
   const { loginSubmitHandler } = useContext(AuthContext);
+
   const { values, onChange, onSubmit } = useForm(loginSubmitHandler, {
-    email: "",
-    password: "",
+    [LoginFormKyes.Email]: "",
+    [LoginFormKyes.Password]: "",
   });
 
   return (
@@ -26,20 +32,20 @@ const SignIn = () => {
           type="text"
           className="auth-input"
           placeholder="Email"
-          name="email"
+          name={LoginFormKyes.Email}
           onChange={onChange}
-          value={values["email"]}
+          value={values[LoginFormKyes.Email]}
         />
       </div>
       <div className="input-field">
         <i className="fa-solid fa-lock icon"></i>
         <input
-          type="text"
+          type="password"
           className="auth-input"
           placeholder="Password"
-          name="password"
+          name={LoginFormKyes.Password}
           onChange={onChange}
-          value={values["password"]}
+          value={values[LoginFormKyes.Password]}
         />
       </div>
 
