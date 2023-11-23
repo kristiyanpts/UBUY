@@ -2,7 +2,6 @@ import usePersistedState from "../hooks/userPersistedState";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as authService from "../services/authService";
-import toast from "react-hot-toast";
 import { EMAIL_REGEX_VALIDATOR } from "../constants/api.constants";
 import {
   SendErrorNotification,
