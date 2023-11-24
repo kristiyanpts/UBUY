@@ -48,7 +48,7 @@
   aspect-ratio: 1/1;
 }
 
-.product-information {
+.product-information-details {
   position: relative;
   width: 100%;
   display: flex;
@@ -57,7 +57,10 @@
   height: fit-content;
 }
 
-.product-information .title {
+.product-information-details .title {
+  position: relative;
+  width: 100%;
+  text-align: center;
   font-size: 50px;
   font-weight: 700;
 }
@@ -299,8 +302,8 @@
 .bottom-part .reviews .review .right-side {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 94%;
+  min-height: 100%;
   justify-content: space-between;
   align-items: end;
 }
@@ -317,6 +320,11 @@
   width: 100%;
   height: fit-content;
   font-size: 20px;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 .bottom-part .reviews .review .right-side .review-controls {
@@ -472,7 +480,7 @@
     align-items: center;
   }
 
-  .product-information .title,
+  .product-information-details .title,
   .adit-info .title,
   .product-buy-options .title {
     font-size: 30px;

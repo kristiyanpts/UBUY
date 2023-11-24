@@ -1,32 +1,82 @@
 import { useEffect, useState } from "react";
 import "./Catalog.css";
-import { MuiThemeProvider, Slider, createTheme } from "@material-ui/core";
 import Product from "../../shared/product/Product";
 import { parseError } from "../../../core/lib/errorParser";
 import { SendErrorNotification } from "../../../core/notifications/notifications";
 
 import * as productService from "../../../core/services/productService";
+// import {
+//   FormControlLabel,
+//   MuiThemeProvider,
+//   Radio,
+//   RadioGroup,
+//   Slider,
+//   createTheme,
+// } from "@material-ui/core";
+import {
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Radio,
+  RadioGroup,
+  Select,
+  Slider,
+  Typography,
+} from "@mui/material";
 
-const muiTheme = createTheme({
-  overrides: {
-    MuiSlider: {
-      thumb: {
-        color: "#38a2e5",
-      },
-      track: {
-        color: "var(--text-primary)",
-      },
-      rail: {
-        color: "var(--background-primary)",
-      },
-    },
-  },
-});
+// const sliderTheme = createTheme({
+//   overrides: {
+//     MuiSlider: {
+//       thumb: {
+//         color: "#38a2e5",
+//       },
+//       track: {
+//         color: "var(--text-primary)",
+//       },
+//       rail: {
+//         color: "var(--background-primary)",
+//       },
+//     },
+//   },
+// });
+
+// const radioTheme = createTheme({
+//   overrides: {
+//     MuiRadio: {
+//       root: {
+//         "& .MuiSvgIcon-root": {
+//           height: 20,
+//           width: 20,
+//         },
+//       },
+//       colorPrimary: {
+//         color: "#38a2e5",
+//         "&$checked": {
+//           color: "#38a2e5",
+//         },
+//       },
+//     },
+//     MuiFormControlLabel: {
+//       label: {
+//         fontSize: "20px",
+//       },
+//     },
+//   },
+// });
 
 const Catalog = () => {
-  const [priceValue, setPriceValue] = useState([0, 1000]);
+  const [priceValue, setPriceValue] = useState([0, 10000]);
   const [toggleFilters, setToggleFilters] = useState(false);
   const [products, setProducts] = useState([]);
+  const [displayedProducts, setDisplayedProducts] = useState([]);
+  const [filters, setFilters] = useState({
+    category: "all",
+    "min-price": "0",
+    "max-price": "10000",
+    sorting: "price-low",
+  });
 
   const rangeSelector = (event, newValue) => {
     setPriceValue(newValue);
@@ -35,7 +85,10 @@ const Catalog = () => {
   useEffect(() => {
     productService
       .getProducts()
-      .then((result) => setProducts(result))
+      .then((result) => {
+        setProducts(result);
+        setDisplayedProducts(result);
+      })
       .catch((error) => {
         let errors = parseError(error);
 
@@ -45,11 +98,66 @@ const Catalog = () => {
       });
   }, []);
 
+  useEffect(() => {
+    filterProducts();
+  }, [filters]);
+
+  function filterProducts() {
+    let filteredProducts = products.filter(
+      (p) =>
+        p.price >= filters["min-price"] &&
+        p.price <= filters["max-price"] &&
+        (filters.category != "all" ? p.category == filters.category : true)
+    );
+
+    console.log(filters["sorting"], filteredProducts);
+
+    if (filters["sorting"] == "recent") {
+      filteredProducts.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    } else if (filters["sorting"] == "price-high") {
+      filteredProducts.sort((a, b) => b.price - a.price);
+    } else if (filters["sorting"] == "a-z") {
+      filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (filters["sorting"] == "z-a") {
+      filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (filters["sorting"] == "price-low") {
+      filteredProducts.sort((a, b) => a.price - b.price);
+    } else if (filters["sorting"] == "most-reviewed") {
+      filteredProducts.sort((a, b) => b.reviews.length - a.reviews.length);
+    }
+
+    setDisplayedProducts(filteredProducts);
+  }
+
+  function onFilterChange(e) {
+    e.preventDefault();
+
+    // @ts-ignore
+    let formData = Object.fromEntries(new FormData(e.currentTarget));
+
+    // @ts-ignore
+    setFilters(formData);
+    filterProducts();
+  }
+
+  function changeSort(e) {
+    setFilters((state) => ({
+      ...state,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
   return (
     <div className="catalog-wrapper">
-      <div className={`filters ${toggleFilters ? "shown" : ""}`}>
+      <form
+        className={`filters ${toggleFilters ? "shown" : ""}`}
+        onSubmit={onFilterChange}
+      >
         <button
           className="toggle-filters"
+          type="button"
           onClick={() => setToggleFilters(!toggleFilters)}
         >
           <i
@@ -61,42 +169,58 @@ const Catalog = () => {
         <div className="title">Filters</div>
         <div className="filter-options">
           <div className="name">Category</div>
-          <div className="filter-option">
-            <label htmlFor="checkbox-home">
-              <input type="checkbox" id="checkbox-home" name="checkbox-home" />
-              Home
-            </label>
-          </div>
-          <div className="filter-option">
-            <label htmlFor="checkbox-electronics">
-              <input
-                type="checkbox"
-                id="checkbox-electronics"
-                name="checkbox-electronics"
-              />
-              Electronics
-            </label>
-          </div>
-          <div className="filter-option">
-            <label htmlFor="checkbox-gaming">
-              <input
-                type="checkbox"
-                id="checkbox-gaming"
-                name="checkbox-gaming"
-              />
-              Gaming
-            </label>
-          </div>
-          <div className="filter-option">
-            <label htmlFor="checkbox-other">
-              <input
-                type="checkbox"
-                id="checkbox-other"
-                name="checkbox-other"
-              />
-              Other
-            </label>
-          </div>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="all"
+            name="category"
+            sx={{
+              "& .MuiSvgIcon-root": {
+                height: 20,
+                width: 20,
+              },
+              colorPrimary: {
+                color: "#38a2e5",
+                "&$checked": {
+                  color: "#38a2e5",
+                },
+              },
+            }}
+          >
+            <FormControlLabel
+              value="all"
+              control={<Radio size="small" color="primary" />}
+              label={<Typography style={{ fontSize: "24px" }}>All</Typography>}
+            />
+            <FormControlLabel
+              value="home"
+              control={<Radio size="small" color="primary" />}
+              label={<Typography style={{ fontSize: "24px" }}>Home</Typography>}
+            />
+            <FormControlLabel
+              value="electronics"
+              control={<Radio size="small" color="primary" />}
+              label={
+                <Typography style={{ fontSize: "24px" }}>
+                  Electronics
+                </Typography>
+              }
+              style={{ fontSize: "16px!important" }}
+            />
+            <FormControlLabel
+              value="gaming"
+              control={<Radio size="small" color="primary" />}
+              label={
+                <Typography style={{ fontSize: "24px" }}>Gaming</Typography>
+              }
+            />
+            <FormControlLabel
+              value="others"
+              control={<Radio size="small" color="primary" />}
+              label={
+                <Typography style={{ fontSize: "24px" }}>Others</Typography>
+              }
+            />
+          </RadioGroup>
         </div>
         <div className="filter-options">
           <div className="name">Price</div>
@@ -112,60 +236,82 @@ const Catalog = () => {
               />
             </div>
             <div className="price-input">
-              <label htmlFor="min-price">MAX</label>
+              <label htmlFor="max-price">MAX</label>
               <input
                 type="text"
-                name="min-price"
-                id="min-price"
-                max={1000}
+                name="max-price"
+                id="max-price"
+                max={10000}
                 value={priceValue[1]}
               />
             </div>
           </div>
-          <MuiThemeProvider theme={muiTheme}>
-            <Slider
-              value={priceValue}
-              onChange={rangeSelector}
-              valueLabelDisplay="off"
-              min={0}
-              max={1000}
-            />
-          </MuiThemeProvider>
+          <Slider
+            value={priceValue}
+            onChange={rangeSelector}
+            valueLabelDisplay="off"
+            min={0}
+            max={10000}
+            sx={{
+              thumb: {
+                color: "#38a2e5",
+              },
+            }}
+          />
         </div>
         <div className="title">Sorting</div>
         <div className="filter-options">
-          <div className="name">Price</div>
-          <div className="filter-option">
-            <select name="price-sort" id="price-sort">
-              <option value="price-low">Lowest Price</option>
-              <option value="price-high">Highest Price</option>
-            </select>
-          </div>
+          <div className="name">Price Sorting</div>
+          <FormControl fullWidth size="small">
+            <Select
+              labelId="sorting"
+              id="sorting"
+              name="sorting"
+              value={filters["sorting"]}
+              onChange={changeSort}
+              displayEmpty
+              sx={{
+                "& #sorting": {
+                  fontSize: "18px",
+                  color: "var(--text-primary)",
+                },
+              }}
+            >
+              <MenuItem value="price-low" style={{ fontSize: "18px" }}>
+                Lowest Price
+              </MenuItem>
+              <MenuItem value="price-high" style={{ fontSize: "18px" }}>
+                Highest Price
+              </MenuItem>
+              <MenuItem value="a-z" style={{ fontSize: "18px" }}>
+                Alphabetically (A-Z)
+              </MenuItem>
+              <MenuItem value="z-a" style={{ fontSize: "18px" }}>
+                Alphabetically (Z-A)
+              </MenuItem>
+              <MenuItem value="recent" style={{ fontSize: "18px" }}>
+                Recently Added
+              </MenuItem>
+              <MenuItem value="most-reviewed" style={{ fontSize: "18px" }}>
+                Most Reviewed
+              </MenuItem>
+            </Select>
+          </FormControl>
         </div>
-        <div className="filter-options">
-          <div className="name">Name</div>
-          <div className="filter-option">
-            <select name="name-sort" id="name-sort">
-              <option value="a-z">Alphabetically (A-Z)</option>
-              <option value="z-a">Alphabetically (Z-A)</option>
-            </select>
-          </div>
-        </div>
-        <div className="filter-options">
-          <div className="name">Other</div>
-          <div className="filter-option">
-            <select name="other-sort" id="other-sort">
-              <option value="recent">Recently Added</option>
-              <option value="most-reviewed">Most Reviewed</option>
-            </select>
-          </div>
-        </div>
-      </div>
+
+        <button className="apply-btn" type="submit">
+          Apply Changes
+        </button>
+      </form>
       <div className="products-wrapper">
-        {products.length > 0 &&
-          products.map((product) => (
+        {displayedProducts.length > 0 &&
+          displayedProducts.map((product) => (
             <Product key={product._id} {...product}></Product>
           ))}
+
+        {displayedProducts.length == 0 && (
+          <div className="no-return">There are no procuts to display!</div>
+        )}
       </div>
     </div>
   );

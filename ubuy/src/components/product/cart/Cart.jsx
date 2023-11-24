@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const Cart = () => {
   let navigate = useNavigate();
+
+  useEffect(() => {
+    let cartItems = JSON.parse(sessionStorage.getItem("cart-items") || "[]");
+    console.log(cartItems);
+  }, []);
 
   const PlaceOrder = () => {
     toast.success("Your order has been placed!", {

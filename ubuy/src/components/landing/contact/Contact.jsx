@@ -1,9 +1,38 @@
+import { EMAIL_REGEX_VALIDATOR } from "../../../core/constants/api.constants";
+import {
+  SendErrorNotification,
+  SendSuccessNotification,
+} from "../../../core/notifications/notifications";
 import "./Contact.css";
 
 const Contact = () => {
+  function onContactSubmit(e) {
+    e.preventDefault();
+    // @ts-ignore
+    let formData = Object.fromEntries(new FormData(e.currentTarget));
+
+    if (formData.name.length < 1) {
+      return SendErrorNotification("Name must be at least 1 character long");
+    }
+    if (EMAIL_REGEX_VALIDATOR.test(formData.email) == false) {
+      return SendErrorNotification("Email format is invalid");
+    }
+    if (formData.subject.length < 1) {
+      return SendErrorNotification("Subject must be at least 1 character long");
+    }
+    if (formData.message.length < 20) {
+      return SendErrorNotification(
+        "Message must be at least 20 character long"
+      );
+    }
+
+    e.currentTarget.reset();
+    return SendSuccessNotification("Your message has been send!");
+  }
+
   return (
     <div className="contact-wrapper">
-      <div className="contact-form">
+      <form className="contact-form" onSubmit={onContactSubmit}>
         <div className="contact-title">Contact Us</div>
         <div className="contact-field">
           <label htmlFor="name">Name</label>
@@ -43,7 +72,7 @@ const Contact = () => {
           ></textarea>
         </div>
         <button className="submit-contact">Send Message</button>
-      </div>
+      </form>
       <div className="contact-splitter">
         <span>OR</span>
       </div>

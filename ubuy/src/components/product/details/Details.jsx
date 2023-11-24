@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Details.css";
 import { useContext, useEffect, useMemo, useReducer, useState } from "react";
 
@@ -12,24 +12,26 @@ import * as productService from "../../../core/services/productService";
 import AuthContext from "../../../core/contexts/authContext";
 import { useForm } from "../../../core/hooks/useForm";
 import reducer from "./reviewReducer";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide,
+} from "@mui/material";
+import React from "react";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  // @ts-ignore
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Details = () => {
-  //   const cartButtons = document.querySelectorAll(".cart-button");
-
-  //   cartButtons.forEach((button) => {
-  //     button.addEventListener("click", cartClick);
-  //   });
-
-  //   function cartClick() {
-  //     let button = this;
-  //     button.classList.add("clicked");
-  //   }
-
-  // function addToCart(e) {
-  //   e.target.classList.add("clicked");
-  // }
-
   const { productId } = useParams();
+  const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
   const [product, setProduct] = useState({
     name: "",
@@ -45,6 +47,14 @@ const Details = () => {
   });
   const [reviews, dispatchReviews] = useReducer(reducer, []);
   const [isProductInCart, setIsProductInCart] = useState(false);
+
+  const [deleteReviewDialog, setDeleteReviewDialog] = useState(false);
+  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+
+  const handleClose = () => {
+    setDeleteProductDialog(false);
+    setDeleteReviewDialog(false);
+  };
 
   useEffect(() => {
     productService
@@ -123,27 +133,27 @@ const Details = () => {
   }
 
   async function deleteReview(reviewId) {
-    if (confirm("Are you sure you want to delete your review?") == true) {
-      try {
-        const deleteResponse = await productService.deleteProductReview(
-          productId,
-          reviewId
-        );
+    try {
+      const deleteResponse = await productService.deleteProductReview(
+        productId,
+        reviewId
+      );
 
-        // @ts-ignore
-        dispatchReviews({
-          type: "GET_ALL_REVIEWS",
-          payload: deleteResponse.newProduct,
-        });
+      // @ts-ignore
+      dispatchReviews({
+        type: "GET_ALL_REVIEWS",
+        payload: deleteResponse.newProduct,
+      });
 
-        SendSuccessNotification("You successfully deleted your review!");
-      } catch (error) {
-        let errors = parseError(error);
+      handleClose();
 
-        errors.forEach((err) => {
-          SendErrorNotification(err);
-        });
-      }
+      SendSuccessNotification("You successfully deleted your review!");
+    } catch (error) {
+      let errors = parseError(error);
+
+      errors.forEach((err) => {
+        SendErrorNotification(err);
+      });
     }
   }
 
@@ -159,13 +169,31 @@ const Details = () => {
     sessionStorage.setItem("cart-items", JSON.stringify(data));
   }
 
+  async function DeleteListing() {
+    try {
+      await productService.deleteProduct(productId);
+
+      navigate("/");
+
+      handleClose();
+
+      SendSuccessNotification("Product listing has been deleted successfully");
+    } catch (error) {
+      let errors = parseError(error);
+
+      errors.forEach((err) => {
+        SendErrorNotification(err);
+      });
+    }
+  }
+
   return (
     <div className="details-wrapper">
       <div className="top-part">
         <div className="product-details">
           <div className="main-info">
             <img src={product.imageURL} className="product-image"></img>
-            <div className="product-information">
+            <div className="product-information-details">
               <div className="title">{product.name}</div>
               <div className="product-info">
                 <div className="side left">Listed By:</div>
@@ -187,7 +215,14 @@ const Details = () => {
               </div>
               <div className="product-info">
                 <div className="side left">Category:</div>
-                <div className="side">{product.category}</div>
+                <div className="side">
+                  {product.category.replace(
+                    /(\w)(\w*)/g,
+                    function (g0, g1, g2) {
+                      return g1.toUpperCase() + g2.toLowerCase();
+                    }
+                  )}
+                </div>
               </div>
               <div className="product-info">
                 <div className="side left">Bought By:</div>
@@ -219,10 +254,16 @@ const Details = () => {
           {product.owner._id == userId && (
             <>
               <div className="title">Listing Management</div>
-              <button className="manage-button">
+              <button
+                className="manage-button"
+                onClick={() => navigate(`/market/${productId}/edit`)}
+              >
                 <i className="fa-solid fa-pen-to-square"></i> Edit Listing
               </button>
-              <button className="manage-button">
+              <button
+                className="manage-button"
+                onClick={() => setDeleteProductDialog(true)}
+              >
                 <i className="fa-solid fa-trash"></i> Delete Listing
               </button>
             </>
@@ -276,13 +317,72 @@ const Details = () => {
                     <div className="review-controls">
                       <button
                         className="review-control"
-                        onClick={() => deleteReview(review._id)}
+                        onClick={() => setDeleteReviewDialog(true)}
                       >
                         <i className="fa-solid fa-trash"></i> Delete
                       </button>
                     </div>
                   )}
                 </div>
+
+                <React.Fragment>
+                  <Dialog
+                    open={deleteReviewDialog}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <Box
+                      sx={{
+                        bgcolor: "darkred",
+                        color: "white",
+                      }}
+                    >
+                      <DialogTitle
+                        style={{
+                          fontSize: "30px",
+                        }}
+                      >
+                        {"Delete your review?"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText
+                          id="alert-dialog-slide-description"
+                          style={{
+                            fontSize: "20px",
+                            color: "white",
+                          }}
+                        >
+                          Make sure you have selected the correct review that
+                          you want to delete. This action can not be undone!
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          onClick={handleClose}
+                          style={{
+                            fontSize: "20px",
+                            color: "white",
+                          }}
+                        >
+                          No
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            deleteReview(review._id);
+                          }}
+                          style={{
+                            fontSize: "20px",
+                            color: "white",
+                          }}
+                        >
+                          Yes
+                        </Button>
+                      </DialogActions>
+                    </Box>
+                  </Dialog>
+                </React.Fragment>
               </div>
             ))}
 
@@ -293,6 +393,61 @@ const Details = () => {
           )}
         </div>
       </div>
+
+      <React.Fragment>
+        <Dialog
+          open={deleteProductDialog}
+          TransitionComponent={Transition}
+          keepMounted
+        >
+          <Box
+            sx={{
+              bgcolor: "darkred",
+              color: "white",
+            }}
+          >
+            <DialogTitle
+              style={{
+                fontSize: "30px",
+              }}
+            >
+              {"Delete your product listing?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="alert-dialog-slide-description"
+                style={{
+                  fontSize: "20px",
+                  color: "white",
+                }}
+              >
+                Make sure you have selected the correct product listing that you
+                want to delete. This action can not be undone!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                style={{
+                  fontSize: "20px",
+                  color: "white",
+                }}
+              >
+                No
+              </Button>
+              <Button
+                onClick={DeleteListing}
+                style={{
+                  fontSize: "20px",
+                  color: "white",
+                }}
+              >
+                Yes
+              </Button>
+            </DialogActions>
+          </Box>
+        </Dialog>
+      </React.Fragment>
     </div>
   );
 };

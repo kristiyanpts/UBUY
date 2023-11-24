@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import peopleShopping from "../../../assets/people-shopping.png";
 import "./Home.css";
 import Product from "../../shared/product/Product";
-
 import { parseError } from "../../../core/lib/errorParser";
 import { SendErrorNotification } from "../../../core/notifications/notifications";
-
 import * as productService from "../../../core/services/productService";
+import { useContext } from "react";
+import AuthContext from "../../../core/contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     productService
@@ -47,9 +50,17 @@ const Home = () => {
             go shopping.” — Bo Derek
           </div>
           <div className="home-buttons">
-            <button>Sign Up</button>
-            <button>Browse Our Products</button>
-            <button>Create A Listing</button>
+            {isAuthenticated && (
+              <button onClick={() => navigate("/create")}>
+                Create A Listing
+              </button>
+            )}
+            {!isAuthenticated && (
+              <button onClick={() => navigate("/sign-up")}>Sign Up</button>
+            )}
+            <button onClick={() => navigate("/market")}>
+              Browse Our Products
+            </button>
           </div>
         </div>
       </div>
@@ -60,6 +71,12 @@ const Home = () => {
             products.map((product) => (
               <Product key={product._id} {...product}></Product>
             ))}
+
+          {products.length == 0 && (
+            <div className="no-return">
+              There are no recently added products!
+            </div>
+          )}
         </div>
       </div>
     </div>

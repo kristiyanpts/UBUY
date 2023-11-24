@@ -61,7 +61,6 @@
   border-radius: 5px;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .cart-products .cart-product .right-side {
@@ -78,7 +77,7 @@
   justify-content: space-between;
   gap: 10px;
   font-size: 30px;
-  height: 230px;
+  height: 100%;
 }
 
 .product-information .info-product {
