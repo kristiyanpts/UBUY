@@ -1,12 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import "./Details.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useReducer, useState } from "react";
 
 import { parseError } from "../../../core/lib/errorParser";
 import { SendErrorNotification } from "../../../core/notifications/notifications";
 
 import * as productService from "../../../core/services/productService";
 import AuthContext from "../../../core/contexts/authContext";
+import { useForm } from "../../../core/hooks/useForm";
+import reducer from "./reviewReducer";
 
 const Details = () => {
   //   const cartButtons = document.querySelectorAll(".cart-button");
@@ -36,13 +38,23 @@ const Details = () => {
     imageURL: "",
     owner: {},
     buyers: [],
+    reviews: [],
   });
+  const [reviews, dispatchReviews] = useReducer(reducer, []);
 
   useEffect(() => {
     console.log("zdr?");
     productService
       .getProductById(productId)
-      .then(setProduct)
+      .then((productReceived) => {
+        setProduct(productReceived);
+
+        // @ts-ignore
+        dispatchReviews({
+          type: "GET_ALL_REVIEWS",
+          payload: productReceived,
+        });
+      })
       .catch((error) => {
         let errors = parseError(error);
 
@@ -52,7 +64,50 @@ const Details = () => {
       });
   }, [productId]);
 
-  console.log(product);
+  // Reviews
+
+  const initialValues = useMemo(
+    () => ({
+      caption: "",
+      message: "",
+    }),
+    []
+  );
+
+  const { values, onChange, onSubmit } = useForm(onReviewSubmit, initialValues);
+
+  async function onReviewSubmit(values) {
+    // Values Validation
+    if (values.caption.length < 1) {
+      return SendErrorNotification(
+        "Review caption must be at least 1 character long"
+      );
+    }
+    if (values.message.length < 1) {
+      return SendErrorNotification(
+        "Review message must be at least 1 character long"
+      );
+    }
+
+    try {
+      const reviewResponse = await productService.addProductReview(
+        productId,
+        values
+      );
+
+      // @ts-ignore
+      dispatchReviews({
+        type: "UPDATE_REVIEWS",
+        payload: reviewResponse.newProduct,
+      });
+    } catch (error) {
+      let errors = parseError(error);
+
+      errors.forEach((err) => {
+        SendErrorNotification(err);
+      });
+    }
+  }
 
   return (
     <div className="details-wrapper">
@@ -124,67 +179,63 @@ const Details = () => {
       </div>
       <div className="bottom-part">
         <div className="title">Product Reviews</div>
-        <div className="review-input">
+        <form className="review-input" onSubmit={onSubmit}>
+          <input
+            type="text"
+            placeholder="Review title..."
+            name="caption"
+            onChange={onChange}
+            value={values.caption}
+          />
           <textarea
-            name="review"
+            name="message"
             id="review"
             cols={30}
             rows={5}
             placeholder="Write you review here..."
+            onChange={onChange}
+            value={values.message}
           ></textarea>
-          <button className="send-review">
+          <button className="send-review" type="submit">
             <i className="fa-solid fa-paper-plane"></i> Send Review
           </button>
-        </div>
+        </form>
         <div className="reviews">
-          <div className="review">
-            <div className="left-side">
-              <img
-                src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
-                alt=""
-                className="pfp"
-              />
-              <div className="username">Kris</div>
-              <div className="date">12/12/1222 at 10:12</div>
-            </div>
-            <div className="right-side">
-              <div className="message">
-                this asdasdthis asdasdthis asdasdthis asdasdthis asdasdthis
-                asdasdthis asdasdthis asdasdthis asdasdthis asdasdthis
-                asdasdthis asdasdthis asdasdthis asdasdthis asdasdthis
-                asdasdthis asdasdthis asdasdthis asdasd
+          {reviews.length > 0 &&
+            reviews.map((review) => (
+              <div className="review" key={review._id}>
+                <div className="left-side">
+                  <img
+                    src={
+                      review.author.pfpUrl ||
+                      "https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png"
+                    }
+                    className="pfp"
+                  />
+                  <div className="username">{review.author.username}</div>
+                  <div className="date">
+                    {new Date(review.date).toLocaleString()}
+                  </div>
+                </div>
+                <div className="right-side">
+                  <div className="caption">{review.caption}</div>
+                  <div className="message">{review.message}</div>
+                  {review.author._id == userId && (
+                    <div className="review-controls">
+                      <button className="review-control">
+                        <i className="fa-solid fa-trash"></i> Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="review-controls">
-                <button className="review-control">
-                  <i className="fa-solid fa-trash"></i> Delete
-                </button>
-              </div>
+            ))}
+
+          {reviews.length == 0 && (
+            <div className="no-return">
+              There are no reviews for this product yet!
             </div>
-          </div>
-          <div className="review">
-            <div className="left-side">
-              <img
-                src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
-                alt=""
-                className="pfp"
-              />
-              <div className="username">Kris</div>
-              <div className="date">12/12/1222 at 10:12</div>
-            </div>
-            <div className="right-side">
-              <div className="message">
-                this asdasdthis asdasdthis asdasdthis asdasdthis asdasdthis
-                asdasdthis asdasdthis asdasdthis asdasdthis asdasdthis
-                asdasdthis asdasdthis asdasdthis asdasdthis asdasdthis
-                asdasdthis asdasdthis asdasdthis asdasd
-              </div>
-              <div className="review-controls">
-                <button className="review-control">
-                  <i className="fa-solid fa-trash"></i> Delete
-                </button>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ export default function SignOut() {
         navigate("/");
       })
       .catch(() => navigate("/"));
-  }, []);
+  });
 
   return null;
 }

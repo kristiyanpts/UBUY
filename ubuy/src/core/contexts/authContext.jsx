@@ -7,6 +7,7 @@ import {
   SendErrorNotification,
   SendSuccessNotification,
 } from "../notifications/notifications";
+import { parseError } from "../../core/lib/errorParser";
 
 // @ts-ignore
 const AuthContext = createContext();
@@ -29,15 +30,23 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Back-End request
-    const result = await authService.login(values.email, values.password);
+    try {
+      const result = await authService.login(values.email, values.password);
 
-    setAuth(result);
+      setAuth(result);
 
-    SendSuccessNotification(`Welcome back, ${result.username}!`);
+      SendSuccessNotification(`Welcome back, ${result.username}!`);
 
-    localStorage.setItem("id", result._id);
+      localStorage.setItem("id", result._id);
 
-    navigate("/");
+      navigate("/");
+    } catch (error) {
+      let errors = parseError(error);
+
+      errors.forEach((err) => {
+        SendErrorNotification(err);
+      });
+    }
   };
 
   const registerSubmitHandler = async (values) => {
@@ -69,26 +78,34 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Back-End Request
-    const result = await authService.register(
-      values.firstName,
-      values.lastName,
-      values.email,
-      values.username,
-      values.password,
-      values.repeatPassword,
-      values.pfpUrl,
-      values.role
-    );
+    try {
+      const result = await authService.register(
+        values.firstName,
+        values.lastName,
+        values.email,
+        values.username,
+        values.password,
+        values.repeatPassword,
+        values.pfpUrl,
+        values.role
+      );
 
-    setAuth(result);
+      setAuth(result);
 
-    SendSuccessNotification(
-      `Successful registration! Welcome, ${result.firstName} ${result.lastName}!`
-    );
+      SendSuccessNotification(
+        `Successful registration! Welcome, ${result.firstName} ${result.lastName}!`
+      );
 
-    localStorage.setItem("id", result._id);
+      localStorage.setItem("id", result._id);
 
-    navigate("/");
+      navigate("/");
+    } catch (error) {
+      let errors = parseError(error);
+
+      errors.forEach((err) => {
+        SendErrorNotification(err);
+      });
+    }
   };
 
   const logoutHandler = () => {

@@ -195,7 +195,8 @@
   gap: 10px;
 }
 
-.bottom-part .review-input textarea {
+.bottom-part .review-input textarea,
+.bottom-part .review-input input {
   width: 100%;
   border-radius: 5px;
   background-color: transparent;
@@ -208,7 +209,8 @@
   transition: 0.2s all ease;
 }
 
-.bottom-part .review-input textarea:focus {
+.bottom-part .review-input textarea:focus,
+.bottom-part .review-input input:focus {
   border: 1px solid var(--text-primary);
 }
 
@@ -286,9 +288,17 @@
 .bottom-part .reviews .review .right-side {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 100%;
   justify-content: space-between;
   align-items: end;
+}
+
+.bottom-part .reviews .review .right-side .caption {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  font-weight: 700;
 }
 
 .bottom-part .reviews .review .right-side .message {
