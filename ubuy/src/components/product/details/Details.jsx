@@ -3,7 +3,10 @@ import "./Details.css";
 import { useContext, useEffect, useMemo, useReducer, useState } from "react";
 
 import { parseError } from "../../../core/lib/errorParser";
-import { SendErrorNotification } from "../../../core/notifications/notifications";
+import {
+  SendErrorNotification,
+  SendSuccessNotification,
+} from "../../../core/notifications/notifications";
 
 import * as productService from "../../../core/services/productService";
 import AuthContext from "../../../core/contexts/authContext";
@@ -41,9 +44,9 @@ const Details = () => {
     reviews: [],
   });
   const [reviews, dispatchReviews] = useReducer(reducer, []);
+  const [isProductInCart, setIsProductInCart] = useState(false);
 
   useEffect(() => {
-    console.log("zdr?");
     productService
       .getProductById(productId)
       .then((productReceived) => {
@@ -62,6 +65,12 @@ const Details = () => {
           SendErrorNotification(err);
         });
       });
+
+    // Check if item is in cart
+    let data = JSON.parse(sessionStorage.getItem("cart-items") || "[]");
+    if (data.includes(productId)) {
+      setIsProductInCart(true);
+    }
   }, [productId]);
 
   // Reviews
@@ -97,9 +106,13 @@ const Details = () => {
 
       // @ts-ignore
       dispatchReviews({
-        type: "UPDATE_REVIEWS",
+        type: "GET_ALL_REVIEWS",
         payload: reviewResponse.newProduct,
       });
+
+      SendSuccessNotification(
+        "You successfully added review to the current product!"
+      );
     } catch (error) {
       let errors = parseError(error);
 
@@ -107,6 +120,43 @@ const Details = () => {
         SendErrorNotification(err);
       });
     }
+  }
+
+  async function deleteReview(reviewId) {
+    if (confirm("Are you sure you want to delete your review?") == true) {
+      try {
+        const deleteResponse = await productService.deleteProductReview(
+          productId,
+          reviewId
+        );
+
+        // @ts-ignore
+        dispatchReviews({
+          type: "GET_ALL_REVIEWS",
+          payload: deleteResponse.newProduct,
+        });
+
+        SendSuccessNotification("You successfully deleted your review!");
+      } catch (error) {
+        let errors = parseError(error);
+
+        errors.forEach((err) => {
+          SendErrorNotification(err);
+        });
+      }
+    }
+  }
+
+  function AddProductToCart(e) {
+    let data = JSON.parse(sessionStorage.getItem("cart-items") || "[]");
+    if (!data.includes(productId)) {
+      e.currentTarget.classList.add("clicked");
+      data.push(productId);
+    } else {
+      return SendErrorNotification("This product is already in your cart");
+    }
+
+    sessionStorage.setItem("cart-items", JSON.stringify(data));
   }
 
   return (
@@ -156,9 +206,11 @@ const Details = () => {
             <span>Unit Price:</span>
             <span>${product.price}</span>
           </div>
-          <button className="cart-button">
-            <span className="add-to-cart">Add to cart</span>
-            <span className="added">Added</span>
+          <button className="cart-button" onClick={AddProductToCart}>
+            <span className="add-to-cart">
+              {isProductInCart == true ? "In Cart" : "Add To Cart"}
+            </span>
+            <span className="added">In Cart</span>
             <i className="fas fa-shopping-cart"></i>
             <i className="fas fa-box"></i>
           </button>
@@ -222,7 +274,10 @@ const Details = () => {
                   <div className="message">{review.message}</div>
                   {review.author._id == userId && (
                     <div className="review-controls">
-                      <button className="review-control">
+                      <button
+                        className="review-control"
+                        onClick={() => deleteReview(review._id)}
+                      >
                         <i className="fa-solid fa-trash"></i> Delete
                       </button>
                     </div>

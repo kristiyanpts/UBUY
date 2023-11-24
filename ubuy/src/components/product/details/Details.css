@@ -112,12 +112,23 @@
 }
 
 .adit-info .title {
+  position: relative;
+  width: 100%;
+  text-align: center;
   font-size: 40px;
   font-weight: 700;
 }
 
 .adit-info .desc {
+  position: relative;
+  width: 100%;
+  height: fit-content;
   font-size: 25px;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 .product-buy-options {
@@ -338,7 +349,7 @@
   background-color: var(--background-primary);
   outline: none;
   cursor: pointer;
-  color: #fff;
+  color: var(--text-primary);
   transition: all 0.2s ease;
   overflow: hidden;
   border: 1px solid var(--text-primary);
