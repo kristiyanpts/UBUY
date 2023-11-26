@@ -132,9 +132,6 @@
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 .adit-info .desc .buyer {
