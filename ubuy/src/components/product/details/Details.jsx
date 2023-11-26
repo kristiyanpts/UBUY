@@ -32,7 +32,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Details = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const { userId } = useContext(AuthContext);
+  const { isAuthenticated, userId } = useContext(AuthContext);
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -159,6 +159,7 @@ const Details = () => {
 
   function AddProductToCart(e) {
     let data = JSON.parse(sessionStorage.getItem("cart-items") || "[]");
+    console.log(data, typeof data);
     if (!data.includes(productId)) {
       e.currentTarget.classList.add("clicked");
       data.push(productId);
@@ -186,6 +187,8 @@ const Details = () => {
       });
     }
   }
+
+  console.log(product);
 
   return (
     <div className="details-wrapper">
@@ -233,6 +236,30 @@ const Details = () => {
           <div className="adit-info">
             <div className="title">Description</div>
             <div className="desc">{product.description}</div>
+            {product.buyers.length > 0 && (
+              <>
+                <div className="title">Buyers</div>
+                <div className="desc">
+                  {product.buyers.map((buyer) => (
+                    <>
+                      <div className="buyer" key={buyer._id}>
+                        <div className="side">
+                          {buyer.firstName} {buyer.lastName}
+                        </div>
+                        <div className="side">
+                          <Link
+                            to={`/users/${buyer._id}`}
+                            className="buyer-link"
+                          >
+                            <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                          </Link>
+                        </div>
+                      </div>
+                    </>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="product-buy-options">
@@ -241,14 +268,18 @@ const Details = () => {
             <span>Unit Price:</span>
             <span>${product.price}</span>
           </div>
-          <button className="cart-button" onClick={AddProductToCart}>
-            <span className="add-to-cart">
-              {isProductInCart == true ? "In Cart" : "Add To Cart"}
-            </span>
-            <span className="added">In Cart</span>
-            <i className="fas fa-shopping-cart"></i>
-            <i className="fas fa-box"></i>
-          </button>
+          {product.quantity > 0 && (
+            <button className="cart-button" onClick={AddProductToCart}>
+              <span className="add-to-cart">
+                {isProductInCart == true ? "In Cart" : "Add To Cart"}
+              </span>
+              <span className="added">In Cart</span>
+              <i className="fas fa-shopping-cart"></i>
+              <i className="fas fa-box"></i>
+            </button>
+          )}
+
+          {product.quantity <= 0 && <span className="sold-out">Sold Out!</span>}
 
           {/* Owner options */}
           {product.owner._id == userId && (
@@ -272,27 +303,29 @@ const Details = () => {
       </div>
       <div className="bottom-part">
         <div className="title">Product Reviews</div>
-        <form className="review-input" onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="Review title..."
-            name="caption"
-            onChange={onChange}
-            value={values.caption}
-          />
-          <textarea
-            name="message"
-            id="review"
-            cols={30}
-            rows={5}
-            placeholder="Write you review here..."
-            onChange={onChange}
-            value={values.message}
-          ></textarea>
-          <button className="send-review" type="submit">
-            <i className="fa-solid fa-paper-plane"></i> Send Review
-          </button>
-        </form>
+        {isAuthenticated && (
+          <form className="review-input" onSubmit={onSubmit}>
+            <input
+              type="text"
+              placeholder="Review title..."
+              name="caption"
+              onChange={onChange}
+              value={values.caption}
+            />
+            <textarea
+              name="message"
+              id="review"
+              cols={30}
+              rows={5}
+              placeholder="Write you review here..."
+              onChange={onChange}
+              value={values.message}
+            ></textarea>
+            <button className="send-review" type="submit">
+              <i className="fa-solid fa-paper-plane"></i> Send Review
+            </button>
+          </form>
+        )}
         <div className="reviews">
           {reviews.length > 0 &&
             reviews.map((review) => (

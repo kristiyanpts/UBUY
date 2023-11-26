@@ -34,6 +34,15 @@ export const editProduct = async (productId, productData) => {
   return response;
 };
 
+export const buyProduct = async (productId, productData) => {
+  const response = await request.put(
+    `${API_BASEURL}/products/${productId}/buy`,
+    productData
+  );
+
+  return response;
+};
+
 export const deleteProduct = async (productId) => {
   const response = await request.remove(`${API_BASEURL}/products/${productId}`);
 

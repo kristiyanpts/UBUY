@@ -49,8 +49,8 @@ function App() {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-out" element={<SignOut />} />
-            <Route path="/users/:userId" element={<Profile />} />
-            <Route path="/users/:userId/edit" element={<EditProfile />} />
+            <Route path="/users/:profileId" element={<Profile />} />
+            <Route path="/users/:profileId/edit" element={<EditProfile />} />
 
             {/* 404 Error */}
             <Route path="*" element={<Error />} />

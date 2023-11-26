@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import ubuyLogo from "../../../assets/ubuy-logo.png";
 import "./Header.css";
 import { useContext, useState } from "react";
 import AuthContext from "../../../core/contexts/authContext";
 
 const Header = () => {
-  const { isAuthenticated, username } = useContext(AuthContext);
+  const { isAuthenticated, username, userId } = useContext(AuthContext);
   let [isMenuShown, setIsMenuShown] = useState(false);
 
   function toggleMenu() {
@@ -16,42 +16,81 @@ const Header = () => {
     <header>
       <img src={ubuyLogo} alt="" className="logo" />
       <nav className={"navlist " + (isMenuShown ? "selected" : null)}>
-        <Link to="/">
+        <NavLink
+          className={({ isActive }) => (isActive ? "active-nav" : undefined)}
+          to="/"
+        >
           <i className="fa-solid fa-house"></i> | Home
-        </Link>
-        <Link to="/contact">
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "active-nav" : undefined)}
+          to="/contact"
+        >
           <i className="fa-solid fa-address-book"></i> | Contact
-        </Link>
+        </NavLink>
 
-        <Link to="/market">
+        <NavLink
+          className={({ isActive }) => (isActive ? "active-nav" : undefined)}
+          to="/market"
+        >
           <i className="fa-solid fa-shop"></i> | Market
-        </Link>
+        </NavLink>
 
         {isAuthenticated && (
           <>
-            <Link to="/create">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }
+              to="/create"
+            >
               <i className="fa-solid fa-circle-plus"></i> | Add Listing
-            </Link>
-            <Link to="/cart">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }
+              to="/cart"
+            >
               <i className="fa-solid fa-cart-shopping"></i> | Cart
-            </Link>
-            <Link to="/users/test">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }
+              to={`/users/${userId}`}
+            >
               <i className="fa-solid fa-user"></i> | {username}
-            </Link>
-            <Link to="/sign-out">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }
+              to="/sign-out"
+            >
               <i className="fa-solid fa-right-from-bracket"></i> | Sign Out
-            </Link>
+            </NavLink>
           </>
         )}
 
         {!isAuthenticated && (
           <>
-            <Link to="/sign-in">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }
+              to="/sign-in"
+            >
               <i className="fa-solid fa-right-to-bracket"></i> | Sign In
-            </Link>
-            <Link to="/sign-up">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }
+              to="/sign-up"
+            >
               <i className="fa-solid fa-user-plus"></i> | Sign Up
-            </Link>
+            </NavLink>
           </>
         )}
       </nav>
