@@ -5,14 +5,6 @@ import { parseError } from "../../../core/lib/errorParser";
 import { SendErrorNotification } from "../../../core/notifications/notifications";
 
 import * as productService from "../../../core/services/productService";
-// import {
-//   FormControlLabel,
-//   MuiThemeProvider,
-//   Radio,
-//   RadioGroup,
-//   Slider,
-//   createTheme,
-// } from "@material-ui/core";
 import {
   FormControl,
   FormControlLabel,
@@ -25,46 +17,6 @@ import {
   Slider,
   Typography,
 } from "@mui/material";
-
-// const sliderTheme = createTheme({
-//   overrides: {
-//     MuiSlider: {
-//       thumb: {
-//         color: "#38a2e5",
-//       },
-//       track: {
-//         color: "var(--text-primary)",
-//       },
-//       rail: {
-//         color: "var(--background-primary)",
-//       },
-//     },
-//   },
-// });
-
-// const radioTheme = createTheme({
-//   overrides: {
-//     MuiRadio: {
-//       root: {
-//         "& .MuiSvgIcon-root": {
-//           height: 20,
-//           width: 20,
-//         },
-//       },
-//       colorPrimary: {
-//         color: "#38a2e5",
-//         "&$checked": {
-//           color: "#38a2e5",
-//         },
-//       },
-//     },
-//     MuiFormControlLabel: {
-//       label: {
-//         fontSize: "20px",
-//       },
-//     },
-//   },
-// });
 
 const Catalog = () => {
   const [priceValue, setPriceValue] = useState([0, 10000]);
