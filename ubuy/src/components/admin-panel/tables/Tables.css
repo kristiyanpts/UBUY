@@ -1,0 +1,96 @@
+.listings-table {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--text-primary);
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 5px;
+  overflow-x: scroll !important;
+}
+
+.listings-table td,
+.listings-table th {
+  text-align: left;
+  font-size: 20px;
+  height: 50px;
+  padding-left: 10px;
+}
+
+.listings-table th:not(:last-child),
+.listings-table td:not(:last-child) {
+  border-right: 1px solid var(--text-primary);
+}
+
+.listings-table > thead > tr:not(:last-child) > th,
+.listings-table > thead > tr:not(:last-child) > td,
+.listings-table > tbody > tr:not(:last-child) > th,
+.listings-table > tbody > tr:not(:last-child) > td,
+.listings-table > tfoot > tr:not(:last-child) > th,
+.listings-table > tfoot > tr:not(:last-child) > td,
+.listings-table > tr:not(:last-child) > td,
+.listings-table > tr:not(:last-child) > th,
+.listings-table > thead:not(:last-child),
+.listings-table > tbody:not(:last-child),
+.listings-table > tfoot:not(:last-child) {
+  border-bottom: 1px solid var(--text-primary);
+}
+
+.listing-actions {
+  position: relative;
+  height: 100%;
+  display: flex;
+  padding-left: 0 !important;
+  width: 100%;
+}
+
+.listing-actions button {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-size: 18px;
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.listing-actions button:hover:not(:disabled) {
+  background-color: var(--text-primary);
+  color: var(--background-primary);
+}
+
+.listing-actions button:disabled,
+.listing-actions button[disabled] {
+  cursor: not-allowed;
+}
+
+@media only screen and (max-width: 900px) {
+  .listing-actions button .name {
+    display: none;
+  }
+  .listings-table th:nth-child(4),
+  .listings-table td:nth-child(4) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .listings-table th:nth-child(2),
+  .listings-table td:nth-child(2) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .listings-table th:nth-child(3),
+  .listings-table td:nth-child(3) {
+    display: none;
+  }
+}
