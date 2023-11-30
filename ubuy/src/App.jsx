@@ -18,6 +18,11 @@ import Details from "./components/product/details/Details";
 import EditProfile from "./components/user/user-management/EditProfile";
 import Error from "./components/landing/error/Error";
 import SignOut from "./components/user/user-management/SignOut";
+import AdminPanel from "./components/admin-panel/panel/AdminPanel";
+
+import AuthGuard from "./components//guards/AuthGuard";
+import AdminGuard from "./components/guards/AdminGuard";
+import RoleGuard from "./components/guards/RoleGuard";
 
 import { AuthProvider } from "./core/contexts/authContext";
 
@@ -34,23 +39,40 @@ function App() {
 
         <section className="main-window">
           <Routes>
-            {/* Landing Pages */}
+            {/* Landing Pages Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
 
-            {/* Product Navs */}
+            {/* Product Routes */}
             <Route path="/market" element={<Catalog />} />
-            <Route path="/market/:productId/edit" element={<Edit />} />
             <Route path="/market/:productId/details" element={<Details />} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/cart" element={<Cart />} />
 
-            {/* User Management Navs */}
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-out" element={<SignOut />} />
+            {/* User Management Routes */}
             <Route path="/users/:profileId" element={<Profile />} />
-            <Route path="/users/:profileId/edit" element={<EditProfile />} />
+
+            {/* Non-Authentication Protected Routes */}
+            <Route element={<AuthGuard authenticated={false} />}>
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+            </Route>
+
+            {/* Authentication Protected Routes */}
+            <Route element={<AuthGuard authenticated={true} />}>
+              <Route element={<RoleGuard />}>
+                <Route path="/create" element={<Create />} />
+              </Route>
+
+              <Route path="/market/:productId/edit" element={<Edit />} />
+              <Route path="/cart" element={<Cart />} />
+
+              <Route path="/sign-out" element={<SignOut />} />
+              <Route path="/users/:profileId/edit" element={<EditProfile />} />
+            </Route>
+
+            {/* Admin Panel Route */}
+            <Route element={<AdminGuard />}>
+              <Route path="/admin/*" element={<AdminPanel />} />
+            </Route>
 
             {/* 404 Error */}
             <Route path="*" element={<Error />} />
