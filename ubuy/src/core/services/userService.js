@@ -1,6 +1,12 @@
 import { API_BASEURL } from "../constants/api.constants";
 import * as request from "../lib/request";
 
+export const getUsers = async () => {
+  const result = await request.get(`${API_BASEURL}/users`);
+
+  return result;
+};
+
 export const getProfileInfo = async (userId) => {
   const result = await request.get(`${API_BASEURL}/users/${userId}`);
 
