@@ -263,20 +263,24 @@ const Details = () => {
           </div>
         </div>
         <div className="product-buy-options">
-          <div className="title">Buying Options</div>
-          <div className="price">
-            <span>Unit Price:</span>
-            <span>${product.price}</span>
-          </div>
-          {product.quantity > 0 && (
-            <button className="cart-button" onClick={AddProductToCart}>
-              <span className="add-to-cart">
-                {isProductInCart == true ? "In Cart" : "Add To Cart"}
-              </span>
-              <span className="added">In Cart</span>
-              <i className="fas fa-shopping-cart"></i>
-              <i className="fas fa-box"></i>
-            </button>
+          {product.owner._id != userId && (
+            <>
+              <div className="title">Buying Options</div>
+              <div className="price">
+                <span>Unit Price:</span>
+                <span>${product.price}</span>
+              </div>
+              {product.quantity > 0 && (
+                <button className="cart-button" onClick={AddProductToCart}>
+                  <span className="add-to-cart">
+                    {isProductInCart == true ? "In Cart" : "Add To Cart"}
+                  </span>
+                  <span className="added">In Cart</span>
+                  <i className="fas fa-shopping-cart"></i>
+                  <i className="fas fa-box"></i>
+                </button>
+              )}
+            </>
           )}
 
           {product.quantity <= 0 && <span className="sold-out">Sold Out!</span>}
