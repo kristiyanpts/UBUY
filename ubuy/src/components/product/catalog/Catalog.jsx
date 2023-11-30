@@ -8,9 +8,7 @@ import * as productService from "../../../core/services/productService";
 import {
   FormControl,
   FormControlLabel,
-  InputLabel,
   MenuItem,
-  OutlinedInput,
   Radio,
   RadioGroup,
   Select,

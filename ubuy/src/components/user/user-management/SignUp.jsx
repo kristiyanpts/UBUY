@@ -136,7 +136,6 @@ const SignUp = () => {
         >
           <option value="buyer">Buyer</option>
           <option value="seller">Seller</option>
-          <option value="both">Both</option>
         </select>
       </div>
 

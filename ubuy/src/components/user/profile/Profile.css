@@ -29,6 +29,7 @@
 .profile-info .left-side .pfp {
   width: 300px;
   border-radius: 5px;
+  aspect-ratio: 1/1;
 }
 
 .profile-info .right-side {
@@ -86,4 +87,33 @@
 .profile-wrapper .profile-products {
   position: relative;
   width: 100%;
+}
+
+.profile-products {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media only screen and (max-width: 1150px) {
+  .profile-info {
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
+
+  .right-side {
+    gap: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

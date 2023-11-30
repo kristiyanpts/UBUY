@@ -17,7 +17,6 @@ const SignIn = () => {
     [LoginFormKyes.Email]: "",
     [LoginFormKyes.Password]: "",
   });
-
   return (
     <form className="auth-form" onSubmit={onSubmit}>
       <div className="auth-form-info">

@@ -16,14 +16,13 @@ header .logo {
 header .navlist {
   position: relative;
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 
 header .navlist a {
   width: fit-content;
   padding: 15px 20px 15px 20px;
-  font-size: 18px;
-  background-color: var(--background-secondary);
+  font-size: 16px;
   border-radius: 5px;
   text-decoration: none;
   color: var(--text-primary);

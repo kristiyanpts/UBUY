@@ -8,6 +8,7 @@ import {
   SendSuccessNotification,
 } from "../notifications/notifications";
 import { parseError } from "../../core/lib/errorParser";
+import { ADMIN_LIST } from "../../core/constants/admin.constants";
 
 // @ts-ignore
 const AuthContext = createContext();
@@ -127,6 +128,11 @@ export const AuthProvider = ({ children }) => {
     role: auth.role,
     userId: auth._id,
     isAuthenticated: !!auth._id,
+    isSeller:
+      auth.role == "seller" || auth.role == "admin" || auth.role == "owner",
+    isAdmin:
+      auth.role == "admin" ||
+      (auth.role == "owner" && ADMIN_LIST.includes(auth._id)),
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

@@ -113,7 +113,12 @@ const Profile = () => {
           </div>
           {userId == user._id && (
             <div className="profile-controls">
-              <button className="profile-control">Edit Profile</button>
+              <button
+                className="profile-control"
+                onClick={() => navigate(`/users/${userId}/edit`)}
+              >
+                Edit Profile
+              </button>
               <button
                 className="profile-control red"
                 onClick={() => setDeleteProfileDialog(true)}
@@ -182,7 +187,7 @@ const Profile = () => {
         </div>
       </div>
       <div className="title">{user.username}&apos;s Listed Products</div>
-      <div className="recent-products">
+      <div className="profile-products">
         {user.products.length > 0 &&
           user.products.map((product) => (
             <Product key={product._id} {...product}></Product>

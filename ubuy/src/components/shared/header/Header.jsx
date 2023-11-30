@@ -5,7 +5,8 @@ import { useContext, useState } from "react";
 import AuthContext from "../../../core/contexts/authContext";
 
 const Header = () => {
-  const { isAuthenticated, username, userId } = useContext(AuthContext);
+  const { isAuthenticated, isAdmin, isSeller, username, userId } =
+    useContext(AuthContext);
   let [isMenuShown, setIsMenuShown] = useState(false);
 
   function toggleMenu() {
@@ -38,14 +39,16 @@ const Header = () => {
 
         {isAuthenticated && (
           <>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "active-nav" : undefined
-              }
-              to="/create"
-            >
-              <i className="fa-solid fa-circle-plus"></i> | Add Listing
-            </NavLink>
+            {isSeller && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active-nav" : undefined
+                }
+                to="/create"
+              >
+                <i className="fa-solid fa-circle-plus"></i> | Add Listing
+              </NavLink>
+            )}
             <NavLink
               className={({ isActive }) =>
                 isActive ? "active-nav" : undefined
@@ -62,6 +65,16 @@ const Header = () => {
             >
               <i className="fa-solid fa-user"></i> | {username}
             </NavLink>
+            {isAdmin && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "active-nav" : undefined
+                }
+                to="/admin/dashboard"
+              >
+                <i className="fa-solid fa-user-secret"></i> | Admin Panel
+              </NavLink>
+            )}
             <NavLink
               className={({ isActive }) =>
                 isActive ? "active-nav" : undefined
