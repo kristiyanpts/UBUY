@@ -9,11 +9,17 @@
 }
 
 [data-theme="dark"] {
-  --background-primary: #131318;
-  --background-secondary: #17181f;
+  /* --background-primary: #352f44;
+  --background-secondary: #5c5470;
 
-  --text-primary: #f2f2f7;
-  --text-secondary: #aca1a1;
+  --text-primary: #b9b4c7;
+  --text-secondary: #faf0e6; */
+
+  --background-primary: #0d0d0d;
+  --background-secondary: #1a1a1a;
+
+  --text-primary: #95a1f9;
+  --text-secondary: #ededed;
 }
 
 .container {
