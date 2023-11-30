@@ -1,4 +1,4 @@
-// Local Developemtn
+// Local Development
 // export const API_BASEURL = "http://localhost:3000/api";
 
 // Production Build
