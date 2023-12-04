@@ -28,6 +28,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({
+    _id: "",
+    username: "",
+  });
   const [deleteDialog, setDeleteDialog] = useState(false);
   const { userId } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -46,12 +50,13 @@ const AdminUsers = () => {
   }, []);
 
   const handleClose = () => {
+    setSelectedUser({ _id: "", username: "" });
     setDeleteDialog(false);
   };
 
-  async function DeleteUser(profileId) {
+  async function DeleteUser() {
     try {
-      await userService.deleteProfile(profileId);
+      await userService.deleteProfile(selectedUser._id);
 
       handleClose();
 
@@ -99,7 +104,10 @@ const AdminUsers = () => {
                   <div className="name">View</div>
                 </button>
                 <button
-                  onClick={() => setDeleteDialog(true)}
+                  onClick={() => {
+                    setDeleteDialog(true);
+                    setSelectedUser(u);
+                  }}
                   disabled={
                     userId == u._id || u.role == "admin" || u.role == "owner"
                   }
@@ -110,63 +118,63 @@ const AdminUsers = () => {
                   <div className="name">Delete</div>
                 </button>
               </td>
+            </tr>
+          ))}
 
-              <React.Fragment>
-                <Dialog
-                  open={deleteDialog}
-                  TransitionComponent={Transition}
-                  keepMounted
+          <React.Fragment>
+            <Dialog
+              open={deleteDialog}
+              TransitionComponent={Transition}
+              keepMounted
+            >
+              <Box
+                sx={{
+                  bgcolor: "darkred",
+                  color: "white",
+                }}
+              >
+                <DialogTitle
+                  style={{
+                    fontSize: "30px",
+                  }}
                 >
-                  <Box
-                    sx={{
-                      bgcolor: "darkred",
+                  {`Delete profile (${selectedUser._id} - ${selectedUser.username})?`}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText
+                    id="alert-dialog-slide-description"
+                    style={{
+                      fontSize: "20px",
                       color: "white",
                     }}
                   >
-                    <DialogTitle
-                      style={{
-                        fontSize: "30px",
-                      }}
-                    >
-                      {`Delete profile (${u._id} - ${u.username})?`}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText
-                        id="alert-dialog-slide-description"
-                        style={{
-                          fontSize: "20px",
-                          color: "white",
-                        }}
-                      >
-                        Make sure you have selected the correct profile that you
-                        want to delete. This action can not be undone!
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        onClick={handleClose}
-                        style={{
-                          fontSize: "20px",
-                          color: "white",
-                        }}
-                      >
-                        No
-                      </Button>
-                      <Button
-                        onClick={() => DeleteUser(u._id)}
-                        style={{
-                          fontSize: "20px",
-                          color: "white",
-                        }}
-                      >
-                        Yes
-                      </Button>
-                    </DialogActions>
-                  </Box>
-                </Dialog>
-              </React.Fragment>
-            </tr>
-          ))}
+                    Make sure you have selected the correct profile that you
+                    want to delete. This action can not be undone!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={handleClose}
+                    style={{
+                      fontSize: "20px",
+                      color: "white",
+                    }}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={DeleteUser}
+                    style={{
+                      fontSize: "20px",
+                      color: "white",
+                    }}
+                  >
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Box>
+            </Dialog>
+          </React.Fragment>
         </table>
       )}
 
