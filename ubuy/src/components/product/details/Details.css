@@ -251,6 +251,10 @@
   border: 1px solid var(--text-primary);
 }
 
+.bottom-part .review-input input {
+  height: 45px;
+}
+
 .bottom-part .review-input .send-review {
   width: fit-content;
   padding-left: 30px;
