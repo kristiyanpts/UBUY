@@ -61,13 +61,9 @@ const Profile = () => {
   async function DeleteProfile() {
     try {
       await userService.deleteProfile(profileId);
-
       handleClose();
-
       logoutHandler();
-
       navigate("/");
-
       SendSuccessNotification("Successfully deleted your profile.");
     } catch (error) {
       console.log(error);
