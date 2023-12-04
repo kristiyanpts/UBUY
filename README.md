@@ -45,7 +45,14 @@ Back-End REST API is hosted on Render with a free plan that has some limitations
 - Listings: Admin can view all of the existing listing and can delete them.
 - Users: Admin can view all of the existing users and can delete their profiles.
 
-# 4. Available Scripts
+### 3.4 Aditional Feature
+- Editing and Deleting your listings
+- Adding and Deleting product reviews (can't review your own listing of course)
+- Buying products decreases their quantity (can't buy more than the available amount)
+- Editing and Deleting your profile (deleting your profile delets your product listings and reviews also)
+- Admins can Delete listing and users
+
+# 4. Available Scripts / Setting up
 
 ### 1. Starting the application locally
 ***OPTIONAL** - If you want to start the application fully locally
@@ -79,4 +86,49 @@ npm run build
 
 #### Step 3: After the application is build it will be located in the dist/ folder
 
+### 3. Giving yourself admin permissions (only if ran locally)
+
+#### Step 1: Open MongoDB Compass and change your role to "admin".
+
+#### Step 2: Copy your id from MongoDB Compass and add it to /core/constants/admin.constants.js
+
+#### Step 3: Relog from your account and you should have admin permission!
+
 # 5. Screenshots
+
+## Home Page
+![Imgur](https://imgur.com/0a9J5tj.png)
+![Imgur](https://imgur.com/iDjbCtJ.png)
+
+## Contact Page
+![Imgur](https://imgur.com/y32BuGk.png)
+![Imgur](https://imgur.com/fEJjig4.png)
+
+## Market Page
+![Imgur](https://imgur.com/6F1UT8H.png)
+
+## Add Listing Page
+![Imgur](https://imgur.com/BclJy0K.png)
+
+## Edit Listing Page
+![Imgur](https://imgur.com/Aqawmrt.png)
+
+## Listing Details Page
+![Imgur](https://imgur.com/hwRFucx.png)
+![Imgur](https://imgur.com/VzhpcJY.png)
+
+## Cart Page
+![Imgur](https://imgur.com/TgIIVLe.png)
+![Imgur](https://imgur.com/CP5qcgm.png)
+
+## Profile Page
+![Imgur](https://imgur.com/LL5a1TP.png)
+![Imgur](https://imgur.com/qiYMGxS.png)
+
+## Edit Profile Page
+![Imgur](https://imgur.com/ZnNQa4Z.png)
+
+## Admin Panel Page
+![Imgur](https://imgur.com/SCEkDFu.png)
+![Imgur](https://imgur.com/wOWeiAa.png)
+![Imgur](https://imgur.com/gYDgRHJ.png)
