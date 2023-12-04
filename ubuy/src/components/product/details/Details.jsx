@@ -46,12 +46,16 @@ const Details = () => {
     reviews: [],
   });
   const [reviews, dispatchReviews] = useReducer(reducer, []);
+  const [selectedReview, setSelectedReview] = useState({
+    _id: "",
+  });
   const [isProductInCart, setIsProductInCart] = useState(false);
 
   const [deleteReviewDialog, setDeleteReviewDialog] = useState(false);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
 
   const handleClose = () => {
+    setSelectedReview({ _id: "" });
     setDeleteProductDialog(false);
     setDeleteReviewDialog(false);
   };
@@ -68,12 +72,9 @@ const Details = () => {
           payload: productReceived,
         });
       })
-      .catch((error) => {
-        let errors = parseError(error);
-
-        errors.forEach((err) => {
-          SendErrorNotification(err);
-        });
+      .catch(() => {
+        SendErrorNotification("Product not found!");
+        navigate("/");
       });
 
     // Check if item is in cart
@@ -132,11 +133,11 @@ const Details = () => {
     }
   }
 
-  async function deleteReview(reviewId) {
+  async function deleteReview() {
     try {
       const deleteResponse = await productService.deleteProductReview(
         productId,
-        reviewId
+        selectedReview._id
       );
 
       // @ts-ignore
@@ -307,7 +308,7 @@ const Details = () => {
       </div>
       <div className="bottom-part">
         <div className="title">Product Reviews</div>
-        {isAuthenticated && (
+        {isAuthenticated && userId != product.owner._id && (
           <form className="review-input" onSubmit={onSubmit}>
             <input
               type="text"
@@ -354,72 +355,16 @@ const Details = () => {
                     <div className="review-controls">
                       <button
                         className="review-control"
-                        onClick={() => setDeleteReviewDialog(true)}
+                        onClick={() => {
+                          setSelectedReview(review);
+                          setDeleteReviewDialog(true);
+                        }}
                       >
                         <i className="fa-solid fa-trash"></i> Delete
                       </button>
                     </div>
                   )}
                 </div>
-
-                <React.Fragment>
-                  <Dialog
-                    open={deleteReviewDialog}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={handleClose}
-                    aria-describedby="alert-dialog-slide-description"
-                  >
-                    <Box
-                      sx={{
-                        bgcolor: "darkred",
-                        color: "white",
-                      }}
-                    >
-                      <DialogTitle
-                        style={{
-                          fontSize: "30px",
-                        }}
-                      >
-                        {"Delete your review?"}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText
-                          id="alert-dialog-slide-description"
-                          style={{
-                            fontSize: "20px",
-                            color: "white",
-                          }}
-                        >
-                          Make sure you have selected the correct review that
-                          you want to delete. This action can not be undone!
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button
-                          onClick={handleClose}
-                          style={{
-                            fontSize: "20px",
-                            color: "white",
-                          }}
-                        >
-                          No
-                        </Button>
-                        <Button
-                          onClick={() => {
-                            deleteReview(review._id);
-                          }}
-                          style={{
-                            fontSize: "20px",
-                            color: "white",
-                          }}
-                        >
-                          Yes
-                        </Button>
-                      </DialogActions>
-                    </Box>
-                  </Dialog>
-                </React.Fragment>
               </div>
             ))}
 
@@ -474,6 +419,65 @@ const Details = () => {
               </Button>
               <Button
                 onClick={DeleteListing}
+                style={{
+                  fontSize: "20px",
+                  color: "white",
+                }}
+              >
+                Yes
+              </Button>
+            </DialogActions>
+          </Box>
+        </Dialog>
+      </React.Fragment>
+
+      <React.Fragment>
+        <Dialog
+          open={deleteReviewDialog}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <Box
+            sx={{
+              bgcolor: "darkred",
+              color: "white",
+            }}
+          >
+            <DialogTitle
+              style={{
+                fontSize: "30px",
+              }}
+            >
+              {"Delete your review?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="alert-dialog-slide-description"
+                style={{
+                  fontSize: "20px",
+                  color: "white",
+                }}
+              >
+                Make sure you have selected the correct review that you want to
+                delete. This action can not be undone!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                style={{
+                  fontSize: "20px",
+                  color: "white",
+                }}
+              >
+                No
+              </Button>
+              <Button
+                onClick={() => {
+                  deleteReview(selectedReview._id);
+                }}
                 style={{
                   fontSize: "20px",
                   color: "white",
