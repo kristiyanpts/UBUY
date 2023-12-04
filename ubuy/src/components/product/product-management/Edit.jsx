@@ -24,13 +24,20 @@ const Edit = () => {
   });
 
   useEffect(() => {
-    productService.getProductById(productId).then((result) => {
-      setProduct(result);
-    });
+    productService
+      .getProductById(productId)
+      .then((result) => {
+        setProduct(result);
+      })
+      .catch(() => {
+        SendErrorNotification("Product not found!");
+        navigate("/");
+      });
   }, [productId]);
 
   if (userId != product.owner._id) {
-    navigate(`/market/${productId}/details`);
+    SendErrorNotification("Insufficent permissions!");
+    navigate(`/404`);
   }
 
   const onProductEdit = async (e) => {
