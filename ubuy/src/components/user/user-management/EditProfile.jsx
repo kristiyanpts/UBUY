@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./UserManagement.css";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -8,8 +8,10 @@ import {
   SendSuccessNotification,
 } from "../../../core/notifications/notifications";
 import { parseError } from "../../../core/lib/errorParser";
+import AuthContext from "../../../core/contexts/authContext";
 
 const EditProfile = () => {
+  const { userId } = useContext(AuthContext);
   const { profileId } = useParams();
   const [user, setUser] = useState({
     _id: "",
@@ -22,6 +24,10 @@ const EditProfile = () => {
     products: [],
   });
   const navigate = useNavigate();
+
+  if (userId != profileId) {
+    navigate("/404");
+  }
 
   useEffect(() => {
     userService
