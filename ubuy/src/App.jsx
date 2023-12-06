@@ -1,7 +1,7 @@
 import Header from "./components/shared/header/Header";
 import "./App.css";
 import { ThemeContext } from "./core/theme-provider/Theme";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import SignIn from "./components/user/user-management/SignIn";
@@ -26,8 +26,26 @@ import RoleGuard from "./components/guards/RoleGuard";
 
 import { AuthProvider } from "./core/contexts/authContext";
 
+import * as authService from "./core/services/authService";
+import { SendErrorNotification } from "./core/notifications/notifications";
+import { Backdrop, Box, CircularProgress } from "@mui/material";
+
 function App() {
   const { theme } = useContext(ThemeContext);
+  const [backendLoading, setBackendLoading] = useState(true);
+
+  useEffect(() => {
+    authService
+      .loadBackend()
+      .then(() => {
+        setBackendLoading(false);
+      })
+      .catch(() => {
+        setBackendLoading(false);
+        SendErrorNotification("Back-End encountered error. Refreshing page.");
+        location.reload();
+      });
+  }, []);
 
   return (
     <AuthProvider>
@@ -80,6 +98,34 @@ function App() {
         </section>
 
         <Footer />
+
+        <Backdrop
+          sx={{
+            color: "var(--text-primary)",
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            backgroundColor: "var(--background-primary)",
+          }}
+          open={backendLoading}
+        >
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ position: "relative", textAlign: "center" }}>
+              <CircularProgress color="inherit" />
+            </div>
+            <h3 style={{ position: "relative", textAlign: "center" }}>
+              Back-End Loading
+            </h3>
+            <h3 style={{ position: "relative", textAlign: "center" }}>
+              Please Wait
+            </h3>
+          </div>
+        </Backdrop>
       </div>
     </AuthProvider>
   );

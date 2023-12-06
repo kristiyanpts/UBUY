@@ -32,3 +32,5 @@ export const register = (
   });
 
 export const logout = () => request.post(`${API_BASEURL}/logout`);
+
+export const loadBackend = () => request.get(`${API_BASEURL}/info`);

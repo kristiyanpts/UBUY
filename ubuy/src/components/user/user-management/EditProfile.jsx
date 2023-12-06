@@ -11,7 +11,7 @@ import { parseError } from "../../../core/lib/errorParser";
 import AuthContext from "../../../core/contexts/authContext";
 
 const EditProfile = () => {
-  const { userId } = useContext(AuthContext);
+  const { userId, logoutHandler } = useContext(AuthContext);
   const { profileId } = useParams();
   const [user, setUser] = useState({
     _id: "",
@@ -36,7 +36,6 @@ const EditProfile = () => {
       .catch((error) => {
         console.log(error);
         SendErrorNotification("User does not exist.");
-
         navigate("/");
       });
   }, [profileId]);
@@ -44,15 +43,14 @@ const EditProfile = () => {
   const onProfileEdit = async (e) => {
     e.preventDefault();
 
-    // @ts-ignore
-    const values = Object.fromEntries(new FormData(e.currentTarget));
-
     try {
-      await userService.editProfileInfo(profileId, values);
+      await userService.editProfileInfo(profileId, user);
 
-      SendSuccessNotification("Profile information updated successfully.");
+      SendSuccessNotification(
+        "Profile information updated successfully. You will be redirected to the sign in page."
+      );
 
-      navigate(`/users/${profileId}`);
+      logoutHandler();
     } catch (error) {
       let errors = parseError(error);
 
@@ -152,7 +150,16 @@ const EditProfile = () => {
         </select>
       </div>
 
-      <button className="auth-button">Edit Profile</button>
+      <button className="auth-button" type="submit">
+        Edit Profile
+      </button>
+      <button
+        className="auth-button"
+        type="button"
+        onClick={() => navigate(`/users/${profileId}`)}
+      >
+        Cancel
+      </button>
     </form>
   );
 };

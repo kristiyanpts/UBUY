@@ -271,7 +271,7 @@ const Details = () => {
                 <span>Unit Price:</span>
                 <span>${product.price}</span>
               </div>
-              {product.quantity > 0 && (
+              {product.quantity > 0 && isAuthenticated && (
                 <button className="cart-button" onClick={AddProductToCart}>
                   <span className="add-to-cart">
                     {isProductInCart == true ? "In Cart" : "Add To Cart"}

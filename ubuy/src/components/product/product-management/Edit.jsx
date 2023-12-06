@@ -35,7 +35,7 @@ const Edit = () => {
       });
   }, [productId]);
 
-  if (userId != product.owner._id) {
+  if (product.owner._id && userId != product.owner._id) {
     SendErrorNotification("Insufficent permissions!");
     navigate(`/404`);
   }
@@ -170,7 +170,16 @@ const Edit = () => {
         ></textarea>
       </div>
 
-      <button className="auth-button">Edit listing</button>
+      <button className="auth-button" type="submit">
+        Edit listing
+      </button>
+      <button
+        className="auth-button"
+        type="button"
+        onClick={() => navigate(`/market/${productId}/details`)}
+      >
+        Cancel
+      </button>
     </form>
   );
 };
