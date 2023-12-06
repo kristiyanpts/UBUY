@@ -42,8 +42,13 @@ function App() {
       })
       .catch(() => {
         setBackendLoading(false);
-        SendErrorNotification("Back-End encountered error. Refreshing page.");
-        location.reload();
+        SendErrorNotification(
+          "Back-End encountered error. Refreshing page in 5 seconds."
+        );
+
+        setTimeout(() => {
+          location.reload();
+        }, 5000);
       });
   }, []);
 
