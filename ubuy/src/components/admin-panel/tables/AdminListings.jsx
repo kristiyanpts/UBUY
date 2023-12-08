@@ -27,6 +27,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const AdminListings = () => {
   const [products, setProducts] = useState([]);
+  const [selectedListing, setSelectedListing] = useState({
+    _id: "",
+    name: "",
+  });
   const [deleteDialog, setDeleteDialog] = useState(false);
   const navigate = useNavigate();
 
@@ -44,12 +48,13 @@ const AdminListings = () => {
   }, []);
 
   const handleClose = () => {
+    setSelectedListing({ _id: "", name: "" });
     setDeleteDialog(false);
   };
 
-  async function DeleteListing(listingId) {
+  async function DeleteListing() {
     try {
-      await productService.deleteProduct(listingId);
+      await productService.deleteProduct(selectedListing._id);
 
       navigate("/admin/dashboard");
 
@@ -95,70 +100,75 @@ const AdminListings = () => {
                   <div className="name">View</div>
                 </button>
 
-                <button onClick={() => setDeleteDialog(true)}>
+                <button
+                  onClick={() => {
+                    setSelectedListing(p);
+                    setDeleteDialog(true);
+                  }}
+                >
                   <div className="icon">
                     <i className="fa-solid fa-trash-can"></i>
                   </div>
                   <div className="name">Delete</div>
                 </button>
               </td>
+            </tr>
+          ))}
 
-              <React.Fragment>
-                <Dialog
-                  open={deleteDialog}
-                  TransitionComponent={Transition}
-                  keepMounted
+          <React.Fragment>
+            <Dialog
+              open={deleteDialog}
+              TransitionComponent={Transition}
+              keepMounted
+            >
+              <Box
+                sx={{
+                  bgcolor: "darkred",
+                  color: "white",
+                }}
+              >
+                <DialogTitle
+                  style={{
+                    fontSize: "30px",
+                  }}
                 >
-                  <Box
-                    sx={{
-                      bgcolor: "darkred",
+                  {`Delete product listing (${selectedListing._id} - ${selectedListing.name})?`}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText
+                    id="alert-dialog-slide-description"
+                    style={{
+                      fontSize: "20px",
                       color: "white",
                     }}
                   >
-                    <DialogTitle
-                      style={{
-                        fontSize: "30px",
-                      }}
-                    >
-                      {`Delete product listing (${p._id} - ${p.name})?`}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText
-                        id="alert-dialog-slide-description"
-                        style={{
-                          fontSize: "20px",
-                          color: "white",
-                        }}
-                      >
-                        Make sure you have selected the correct product listing
-                        that you want to delete. This action can not be undone!
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        onClick={handleClose}
-                        style={{
-                          fontSize: "20px",
-                          color: "white",
-                        }}
-                      >
-                        No
-                      </Button>
-                      <Button
-                        onClick={() => DeleteListing(p._id)}
-                        style={{
-                          fontSize: "20px",
-                          color: "white",
-                        }}
-                      >
-                        Yes
-                      </Button>
-                    </DialogActions>
-                  </Box>
-                </Dialog>
-              </React.Fragment>
-            </tr>
-          ))}
+                    Make sure you have selected the correct product listing that
+                    you want to delete. This action can not be undone!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={handleClose}
+                    style={{
+                      fontSize: "20px",
+                      color: "white",
+                    }}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={DeleteListing}
+                    style={{
+                      fontSize: "20px",
+                      color: "white",
+                    }}
+                  >
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Box>
+            </Dialog>
+          </React.Fragment>
         </table>
       )}
 

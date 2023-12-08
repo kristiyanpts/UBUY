@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, role, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +26,8 @@ const Home = () => {
         });
       });
   }, []);
+
+  console.log(role);
 
   return (
     <div className="home-wrapper">
@@ -50,7 +52,7 @@ const Home = () => {
             go shopping.” — Bo Derek
           </div>
           <div className="home-buttons">
-            {isAuthenticated && (
+            {isAuthenticated == true && (role == "seller" || isAdmin) && (
               <button onClick={() => navigate("/create")}>
                 Create A Listing
               </button>

@@ -28,7 +28,7 @@ import { AuthProvider } from "./core/contexts/authContext";
 
 import * as authService from "./core/services/authService";
 import { SendErrorNotification } from "./core/notifications/notifications";
-import { Backdrop, Box, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -55,9 +55,7 @@ function App() {
   return (
     <AuthProvider>
       <div className="container" data-theme={theme}>
-        <div>
-          <Toaster position="bottom-right" reverseOrder={true} />
-        </div>
+        <Toaster position="bottom-right" reverseOrder={true} />
         <Header />
 
         <section className="main-window">

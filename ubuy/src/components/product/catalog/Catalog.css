@@ -1,30 +1,3 @@
-:root {
-  /* -- Colors: */
-  --body-bg-color: #38a2e5;
-  --checkbox-color-hue: 216;
-  --checkbox-color-saturation: 17;
-  --checkbox-color-lightness: 15;
-  --checkbox-color-light: var(--text-primary);
-  --checkbox-color-dark: var(--text-primary);
-  --checkbox-color: var(--background-primary);
-
-  /* -- Box */
-  --checkbox-border-radius: 15%;
-  --checkbox-width: 20;
-  --checkbox-height: 20;
-
-  --text-opacity: 0.6;
-
-  --negative-shadow-offset: 500;
-  --active-shadow-opacity: 0;
-
-  /* -- easing */
-  --cubic-bezier: cubic-bezier(0.6, -1.2, 0.2, 2.2);
-
-  /* -- misc */
-  --debug: 0;
-}
-
 .catalog-wrapper {
   position: relative;
   width: 100%;
