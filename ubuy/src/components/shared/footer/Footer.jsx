@@ -13,7 +13,7 @@ const Footer = () => {
         <a href="https://www.linkedin.com/in/kristiyanpts/" className="link">
           <i className="fa-brands fa-linkedin"></i>
         </a>
-        <a href="https://www.instagram.com/kristiqnpetsanov/" className="link">
+        <a href="https://www.instagram.com/kristiyanpts/" className="link">
           <i className="fa-brands fa-instagram"></i>
         </a>
         <ThemeButton />
