@@ -85,3 +85,20 @@ header .nav-menu-button {
     padding-right: 20px;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .navlist {
+    position: absolute !important;
+    width: 100%;
+    top: 100px;
+    right: -100%;
+    flex-direction: column;
+    z-index: 100;
+    background-color: var(--background-primary);
+    border-radius: 5px;
+    border: 1px solid var(--text-primary);
+    padding: 2%;
+    box-sizing: border-box;
+    align-items: center;
+  }
+}
