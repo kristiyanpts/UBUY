@@ -16,7 +16,10 @@ const Header = () => {
   return (
     <header>
       <img src={ubuyLogo} alt="" className="logo" />
-      <nav className={"navlist " + (isMenuShown ? "selected" : null)}>
+      <nav
+        className={"navlist " + (isMenuShown ? "selected" : null)}
+        onClick={() => setIsMenuShown(false)}
+      >
         <NavLink
           className={({ isActive }) => (isActive ? "active-nav" : undefined)}
           to="/"
