@@ -3,8 +3,8 @@
 
 UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce website that can help you sell all of your unnecessary appliances and things in general. The application is fully responsive, so you can use it from any device!
 
-# Features In Development
-### TBD
+# 🚀 Features In Development
+### To Be Announced...
 
 # 1. Technical Description
 ### UBUY was built using with:
@@ -26,7 +26,7 @@ Back-End REST API is hosted on Render with a free plan that has some limitations
 
 ![Imgur](https://imgur.com/aPArXlm.png)
 
-# 3. Structure
+# Structure
 
 ### 3.1 Public Part - No Authentication Needed
 - Home: User is greeted with the base information they need to know about UBUY and is prompted to register (if not signed in), create a listing (if signed in), browse our listings or take a look at the 5 recently added listings by scrolling down.
