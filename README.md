@@ -1,12 +1,31 @@
 
-# UBUY
+# 🏪 UBUY - Online Marketplace
 
-UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce website that can help you sell all of your unnecessary appliances and things in general. The application is fully responsive, so you can use it from any device!
+UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce website that can help you sell all of your unnecessary appliances and things in general. UBUY's goal is to offer its users/visitors the best possible market experience. Users can get around quickly due to the user friendly design of our website. Our application is fully responsive, so you can use it from any device, any time! So what are you waiting for? Register and sell your unnecessary stuff today!
 
 # 🚀 Features In Development
-### To Be Announced...
+### Account Balance
+- Registered users will be able to activate gift cards/codes with different amounts of balance. Activating a code will add the balance to their account and purchases they want to make will require the listed amount of money.
+- Administrators will be able to create new gift cards/codes through the admin panel. They can set the amount of uses a gift card has and the balance it will add to the user's account
 
-# 1. Technical Description
+### User Settings/Enhanced User Profile
+- Registered users will be able to view/edit their settings in a more in depth way than the current profile editing.
+- Registered users will be able to change their password.
+- Registered users will be able to add different addresses.
+- Registered users will be able to view all of their orders.
+- Administrators will be able to edit user profiles.
+
+### Wishlist
+- Registered users will be able to add their favorite products to their wishlist for easier access to them.
+- Registered users will be able to access their wishlist through their settings/profile.
+
+### Product Rating
+- Registered users will be able to rate the product when leaving a review.
+
+### Chat With Us/Support Chat (Replacing "Contact Us")
+- Registered users will be able to send us messages to get the help they need for our services.
+
+# ⚙️ Technical Description
 ### UBUY was built using with:
 - [**ReactJS**](https://react.dev/) - Front-End
 - [**Express.js REST API**](https://expressjs.com/) - Back-End
@@ -14,7 +33,7 @@ UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce websi
 - [**Material UI**](https://mui.com/) - React Ready Components
 - **Pure CSS**
 
-# 2. Hosting Information
+# ☁ Hosting Information
 
 You can check out the project at: [https://ubuy-react.netlify.app/](https://ubuy-react.netlify.app/)
 
@@ -26,9 +45,9 @@ Back-End REST API is hosted on Render with a free plan that has some limitations
 
 ![Imgur](https://imgur.com/aPArXlm.png)
 
-# Structure
+# 🗄️ Structure
 
-### 3.1 Public Part - No Authentication Needed
+### 1. Public Part - No Authentication Needed
 - Home: User is greeted with the base information they need to know about UBUY and is prompted to register (if not signed in), create a listing (if signed in), browse our listings or take a look at the 5 recently added listings by scrolling down.
 - Contact: Information about our whereabouts is displayed, as well as a contact form for the user to get in touch with us.
 - Market: Displayes all of the listings, as well as a filter menu on the left of the screen.
@@ -36,26 +55,26 @@ Back-End REST API is hosted on Render with a free plan that has some limitations
 - Profiles: User can view other people's profile page and their listed products.
 - Sign In and Sign Up: No explanation needed here :D
 
-### 3.2 Private Part - Authentication Needed
+### 2. Private Part - Authentication Needed
 - Listing Creation: Authenticated users who are registered as sellers can add a new listing. However, authenticated users who are registered as buyers can not add a new listing!
 - Listing Details: Authenticated users who are not the creator (seller) of the listing can add the product listed to their cart and add reviews about the product. Authenticated user who is the creator (seller) of the listing can edit the listing and delete the listing.
 - Editing A Listing: By clicking the edit button the creator (seller) is redirected to the editing page where they can update everything about their listing.
 - Profile: Authenticated user can edit their profile information by navigation to their profile and clicking the edit button.
 - Admin Panel: Authenticated users who are admins can access the admin panel.
 
-### 3.3 Admin Panel - Authentication + Admin Permission Needed
+### 3. Admin Panel - Authentication + Admin Permission Needed
 - Dashboard: Admin can view the main information about the current status of the website.
 - Listings: Admin can view all of the existing listing and can delete them.
 - Users: Admin can view all of the existing users and can delete their profiles.
 
-### 3.4 Aditional Feature
+### 4. Aditional Feature
 - Editing and Deleting your listings
 - Adding and Deleting product reviews (can't review your own listing of course)
 - Buying products decreases their quantity (can't buy more than the available amount)
 - Editing and Deleting your profile (deleting your profile delets your product listings and reviews also)
 - Admins can Delete listing and users
 
-# 4. Available Scripts / Setting up
+# 📜 Available Scripts / Setting up
 
 ### 1. Starting the application locally
 ***OPTIONAL** - If you want to start the application fully locally
@@ -97,7 +116,7 @@ npm run build
 
 #### Step 3: Relog from your account and you should have admin permission!
 
-# 5. Screenshots
+# 🖼️ Screenshots
 
 ## Home Page
 ![Imgur](https://imgur.com/0a9J5tj.png)
