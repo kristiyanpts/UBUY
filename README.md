@@ -1,7 +1,7 @@
 
 # UBUY
 
-UBUY is a React CRUD application built as a final project for the course ReactJS October 2023 @SoftUni. UBUY is an online marketplace/e-commerce website that can help you sell all of your unnecessary appliances and things in general. The application is fully responsive, so you can use it from any device!
+UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce website that can help you sell all of your unnecessary appliances and things in general. The application is fully responsive, so you can use it from any device!
 
 # 1. Technical Description
 ### UBUY was built using with:
