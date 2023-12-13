@@ -38,34 +38,34 @@ const Cart = () => {
     CalculateTotalPrice();
   }, [cartItems]);
 
-  const PlaceOrder = async () => {
-    for (const product of cartItems) {
-      if (product.quantityBuying) {
-        product.quantity -= product.quantityBuying;
-        delete product.quantityBuying;
-      } else {
-        product.quantity--;
-      }
-      try {
-        await productService.buyProduct(product._id, {
-          quantity: product.quantity,
-        });
+  // const PlaceOrder = async () => {
+  //   for (const product of cartItems) {
+  //     if (product.quantityBuying) {
+  //       product.quantity -= product.quantityBuying;
+  //       delete product.quantityBuying;
+  //     } else {
+  //       product.quantity--;
+  //     }
+  //     try {
+  //       await productService.buyProduct(product._id, {
+  //         quantity: product.quantity,
+  //       });
 
-        sessionStorage.removeItem("cart-items");
-        setCartItems([]);
+  //       sessionStorage.removeItem("cart-items");
+  //       setCartItems([]);
 
-        SendSuccessNotification(
-          `Your order for product "${product.name}" has been placed!`
-        );
-      } catch (error) {
-        let errors = parseError(error);
+  //       SendSuccessNotification(
+  //         `Your order for product "${product.name}" has been placed!`
+  //       );
+  //     } catch (error) {
+  //       let errors = parseError(error);
 
-        errors.forEach((err) => {
-          SendErrorNotification(err);
-        });
-      }
-    }
-  };
+  //       errors.forEach((err) => {
+  //         SendErrorNotification(err);
+  //       });
+  //     }
+  //   }
+  // };
 
   const ClearCart = () => {
     sessionStorage.removeItem("cart-items");
@@ -208,7 +208,10 @@ const Cart = () => {
               products in your cart.
             </div>
             <div className="cart-controls">
-              <button className="cart-control" onClick={PlaceOrder}>
+              <button
+                className="cart-control"
+                onClick={() => navigate("/checkout")}
+              >
                 Place Order
               </button>
               <button className="cart-control" onClick={ClearCart}>
