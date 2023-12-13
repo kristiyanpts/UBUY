@@ -6,7 +6,11 @@ UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce websi
 # 🚀 Features In Development
 ### Account Balance
 - Registered users will be able to activate gift cards/codes with different amounts of balance. Activating a code will add the balance to their account and purchases they want to make will require the listed amount of money.
+- Registered users will be able to add balance to their account using PayPal.
 - Administrators will be able to create new gift cards/codes through the admin panel. They can set the amount of uses a gift card has and the balance it will add to the user's account
+
+### Payments with PayPal
+- Registered users will be able to directly pay for their products using PayPal.
 
 ### User Settings/Enhanced User Profile
 - Registered users will be able to view/edit their settings in a more in depth way than the current profile editing.
