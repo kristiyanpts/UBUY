@@ -1,0 +1,41 @@
+.complete-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.complete-wrapper span {
+  font-size: 40px;
+}
+
+.controls {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
+.complete-wrapper button {
+  position: relative;
+  width: fit-content;
+  padding: 10px 20px 10px 20px;
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  border-radius: 5px;
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 0.5px var(--background-secondary),
+    0px 2px 5px 0px var(--background-secondary),
+    0px 1px 1.5px 0px var(--background-secondary);
+  transition: 0.2s all ease;
+}
+
+.complete-wrapper button:hover {
+  color: var(--background-secondary);
+  background-color: var(--text-primary);
+  box-shadow: 0px 0px 0px 0.5px var(--text-primary),
+    0px 2px 5px 0px var(--text-primary), 0px 1px 1.5px 0px var(--text-primary);
+}

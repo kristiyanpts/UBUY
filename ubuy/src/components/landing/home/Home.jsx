@@ -27,8 +27,6 @@ const Home = () => {
       });
   }, []);
 
-  console.log(role);
-
   return (
     <div className="home-wrapper">
       <div className="about-us">

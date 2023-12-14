@@ -160,7 +160,6 @@ const Details = () => {
 
   function AddProductToCart(e) {
     let data = JSON.parse(sessionStorage.getItem("cart-items") || "[]");
-    console.log(data, typeof data);
     if (!data.includes(productId)) {
       e.currentTarget.classList.add("clicked");
       data.push(productId);
@@ -188,8 +187,6 @@ const Details = () => {
       });
     }
   }
-
-  console.log(product);
 
   return (
     <div className="details-wrapper">

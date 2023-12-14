@@ -163,6 +163,8 @@
   gap: 10px;
   border: 1px solid var(--text-primary);
   border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .ordered-product img {

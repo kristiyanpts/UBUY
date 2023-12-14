@@ -51,7 +51,6 @@ const Profile = () => {
       .getProfileInfo(profileId)
       .then(setUser)
       .catch((error) => {
-        console.log(error);
         SendErrorNotification("User does not exist.");
 
         navigate("/");
@@ -65,9 +64,7 @@ const Profile = () => {
       logoutHandler();
       navigate("/");
       SendSuccessNotification("Successfully deleted your profile.");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   return (

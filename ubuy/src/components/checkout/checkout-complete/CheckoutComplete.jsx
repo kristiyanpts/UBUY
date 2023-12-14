@@ -1,44 +1,34 @@
 import { Elements, useStripe } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CheckoutComplete = () => {
-  const stripe = useStripe();
-  const [message, setMessage] = useState(null);
+import "./CheckoutComplete.css";
 
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
+const stripePromise = loadStripe(
+  "pk_test_51OMtawBPikfn3zPt0OadIgIN1aPOwxFhaS1LO078ukhyOOBsd0rU4ZW6s4uuSTWHnpTbEyIo29OhFs6IlIgMgYQt00XbUyAj8h"
+);
 
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
+const CheckoutComplete = (props) => (
+  <Elements stripe={stripePromise}>
+    <Wrapper {...props} />
+  </Elements>
+);
 
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Success! Payment received.");
-          break;
-        case "processing":
-          setMessage(
-            "Payment processing. We'll update you when payment is received."
-          );
-          break;
-        case "requires_payment_method":
-          setMessage("Payment failed. Please try another payment method.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
-  }, [stripe]);
+const Wrapper = () => {
+  const navigate = useNavigate();
 
   return (
-    <div>
-      {clientSecret && (
-        <Elements options={options} stripe={stripePromise}></Elements>
-      )}
+    <div className="complete-wrapper">
+      <img
+        src="https://condaluna.com/assets/stickers/thank-you-pling.gif"
+        alt=""
+      />
+      <span>Your order has been placed!</span>
+      <div className="controls">
+        <button onClick={() => navigate("/")}>Track Order</button>
+        <button onClick={() => navigate("/")}>Home Page</button>
+      </div>
     </div>
   );
 };

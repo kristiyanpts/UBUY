@@ -60,8 +60,6 @@ const Catalog = () => {
         (filters.category != "all" ? p.category == filters.category : true)
     );
 
-    console.log(filters["sorting"], filteredProducts);
-
     if (filters["sorting"] == "recent") {
       filteredProducts.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()

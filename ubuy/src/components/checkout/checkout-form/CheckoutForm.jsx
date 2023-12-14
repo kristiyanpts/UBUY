@@ -8,11 +8,12 @@ import {
   AddressElement,
 } from "@stripe/react-stripe-js";
 import * as productService from "../../../core/services/productService";
+import { parseError } from "../../../core/lib/errorParser";
 import {
   SendErrorNotification,
   SendSuccessNotification,
 } from "../../../core/notifications/notifications";
-import { parseError } from "../../../core/lib/errorParser";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm(data) {
   const stripe = useStripe();
@@ -23,6 +24,8 @@ export default function CheckoutForm(data) {
 
   const cartItems = data.cartItems;
   const [cartPrice, setCartPrice] = useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -59,8 +62,6 @@ export default function CheckoutForm(data) {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -69,16 +70,16 @@ export default function CheckoutForm(data) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: "http://localhost:5173/checkout/complete",
       },
+      redirect: "if_required",
     });
 
     if (error) {
       if (error.type === "card_error" || error.type === "validation_error") {
-        return setMessage(error.message);
+        setMessage(error.message);
       } else {
-        return setMessage("An unexpected error occurred.");
+        setMessage("An unexpected error occurred.");
       }
     } else {
       for (const product of cartItems) {
@@ -98,8 +99,10 @@ export default function CheckoutForm(data) {
             SendErrorNotification(err);
           });
         }
-        sessionStorage.removeItem("cart-items");
       }
+      SendSuccessNotification("Your order has been placed!");
+      sessionStorage.removeItem("cart-items");
+      navigate("/checkout/complete");
     }
 
     setIsLoading(false);
@@ -139,8 +142,6 @@ export default function CheckoutForm(data) {
       },
     },
   };
-
-  console.log(data);
 
   return (
     <div className="checkout-wrapper">

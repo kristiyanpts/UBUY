@@ -34,7 +34,6 @@ const EditProfile = () => {
       .getProfileInfo(profileId)
       .then(setUser)
       .catch((error) => {
-        console.log(error);
         SendErrorNotification("User does not exist.");
         navigate("/");
       });
