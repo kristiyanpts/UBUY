@@ -6,13 +6,27 @@ import CheckoutForm from "../checkout-form/CheckoutForm";
 import * as stripeService from "../../../core/services/stripeService";
 import { parseError } from "../../../core/lib/errorParser";
 import { SendErrorNotification } from "../../../core/notifications/notifications";
+import { Route, useLocation } from "react-router-dom";
+import CheckoutComplete from "../checkout-complete/CheckoutComplete";
 
 const stripePromise = loadStripe(
-  "pk_live_51OMtawBPikfn3zPtDZHZO4xIfLyFv3AQhwBD3eDk26DrZY03Zk0bJkQhcReVDO52jZvixe2c4CCVkPpEQ1jYa7kT00qECgZ764"
+  "pk_test_51OMtawBPikfn3zPt0OadIgIN1aPOwxFhaS1LO078ukhyOOBsd0rU4ZW6s4uuSTWHnpTbEyIo29OhFs6IlIgMgYQt00XbUyAj8h"
 );
 
-const Checkout = () => {
+const getTheme = () => {
+  const theme = localStorage.getItem("theme");
+  if (!theme) {
+    // Default theme is taken as dark-theme
+    localStorage.setItem("theme", "dark");
+    return "dark";
+  } else {
+    return theme;
+  }
+};
+
+const Checkout = (data) => {
   const [clientSecret, setClientSecret] = useState("");
+  const { state } = useLocation();
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -25,7 +39,7 @@ const Checkout = () => {
     //   .then((data) => setClientSecret(data.clientSecret));
 
     stripeService
-      .createPaymentIntent()
+      .createPaymentIntent(state)
       .then((result) => {
         setClientSecret(result.clientSecret);
       })
@@ -39,18 +53,21 @@ const Checkout = () => {
   }, []);
 
   const appearance = {
-    theme: "night",
+    theme: getTheme() == "dark" ? "stripe" : "night",
   };
+
   const options = {
     clientSecret,
     appearance,
   };
 
+  console.log(state);
+
   return (
     <div>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm className="form-wrapper" cartItems={state} />
         </Elements>
       )}
     </div>

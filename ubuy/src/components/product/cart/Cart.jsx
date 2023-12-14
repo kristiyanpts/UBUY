@@ -203,16 +203,18 @@ const Cart = () => {
               <span>${cartPrice}</span>
             </div>
             <div className="desc">
-              By clicking &apos;Place Order&apos; you agree that this order is
-              irefundable. Please double check if you have added your desired
-              products in your cart.
+              By clicking &apos;Proceed To Checkout&apos; you agree that this
+              order is irefundable. Please double check if you have added your
+              desired products in your cart.
             </div>
             <div className="cart-controls">
               <button
                 className="cart-control"
-                onClick={() => navigate("/checkout")}
+                onClick={() =>
+                  navigate("/checkout", { replace: true, state: cartItems })
+                }
               >
-                Place Order
+                Proceed To Checkout
               </button>
               <button className="cart-control" onClick={ClearCart}>
                 Clear Cart

@@ -24,6 +24,7 @@ import AuthGuard from "./components//guards/AuthGuard";
 import AdminGuard from "./components/guards/AdminGuard";
 import RoleGuard from "./components/guards/RoleGuard";
 import Checkout from "./components/checkout/checkout/Checkout";
+import CheckoutComplete from "./components/checkout/checkout-complete/CheckoutComplete";
 
 import { AuthProvider } from "./core/contexts/authContext";
 
@@ -87,6 +88,7 @@ function App() {
               <Route path="/market/:productId/edit" element={<Edit />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/complete" element={<CheckoutComplete />} />
 
               <Route path="/sign-out" element={<SignOut />} />
               <Route path="/users/:profileId/edit" element={<EditProfile />} />
