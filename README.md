@@ -4,29 +4,29 @@
 UBUY is a React CRUD application. UBUY is an online marketplace/e-commerce website that can help you sell all of your unnecessary appliances and things in general. UBUY's goal is to offer its users/visitors the best possible market experience. Users can get around quickly due to the user friendly design of our website. Our application is fully responsive, so you can use it from any device, any time! So what are you waiting for? Register and sell your unnecessary stuff today!
 
 # 🚀 Features In Development
-### Account Balance
+### Account Balance - Status: ❌
 - Registered users will be able to activate gift cards/codes with different amounts of balance. Activating a code will add the balance to their account and purchases they want to make will require the listed amount of money.
 - Registered users will be able to add balance to their account using PayPal.
 - Administrators will be able to create new gift cards/codes through the admin panel. They can set the amount of uses a gift card has and the balance it will add to the user's account
 
-### Payments with Stripe
+### Payments with Stripe - Status: ✅
 - Registered users will be able to directly pay for their products using any payment method thanks to Stripe.
 
-### User Settings/Enhanced User Profile
+### User Settings/Enhanced User Profile - Status: ❌
 - Registered users will be able to view/edit their settings in a more in depth way than the current profile editing.
 - Registered users will be able to change their password.
 - Registered users will be able to add different addresses.
 - Registered users will be able to view all of their orders.
 - Administrators will be able to edit user profiles.
 
-### Wishlist
+### Wishlist - Status: ❌
 - Registered users will be able to add their favorite products to their wishlist for easier access to them.
 - Registered users will be able to access their wishlist through their settings/profile.
 
-### Product Rating
+### Product Rating - Status: ❌
 - Registered users will be able to rate the product when leaving a review.
 
-### Chat With Us/Support Chat (Replacing "Contact Us")
+### Chat With Us/Support Chat (Replacing "Contact Us") - Status: ❌
 - Registered users will be able to send us messages to get the help they need for our services.
 
 # ⚙️ Technical Description
